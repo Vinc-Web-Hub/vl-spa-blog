@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import postsRouter from './routes/postsRoutes.js';
+import usersRouter from './routes/usersRoutes.js';
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -19,6 +20,8 @@ mongoose.connect(process.env.MONGODB_URI)
 // le '/' de la fonction router.get('/', async (req, res) de postsRoutes.js est mappée à /api/posts
 // et permet lee requetes de type : GET http://localhost:3001/api/posts
 app.use('/api/posts', postsRouter);
+// Use the users router : l'URL de l'API est /api/users.
+app.use('/api/users', usersRouter);
 
 // Start the server
 // const PORT = 3001;
