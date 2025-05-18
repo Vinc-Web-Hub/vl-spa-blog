@@ -7,7 +7,12 @@ const router = express.Router();
 // GET /api/posts - Retrieve all posts
 router.get('/', async (req, res) => {
   try {
-    const posts = await Post.find();
+    const { domain } = req.query;
+    let filter = {};
+    if (domain) {
+      filter.domain = domain;
+    }
+    const posts = await Post.find(filter);
     res.json(posts);
   } catch (err) {
     console.error('Error fetching posts:', err);

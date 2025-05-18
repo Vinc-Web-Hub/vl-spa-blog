@@ -82,11 +82,15 @@ const formattedDate = computed(() => {
 
 .card-text {
   font-size: 1rem;
+  text-align: justify;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
 }
 
 .truncated {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: left; /* Override justify for truncated text */
 }
 </style>
