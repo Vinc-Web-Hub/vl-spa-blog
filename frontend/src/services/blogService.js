@@ -47,3 +47,18 @@ export const createPost = async (postData) => {
     return null;
   }
 };
+
+/**
+ * Fetch blog posts by domain/category.
+ * @param {string} domain - The domain/category to filter posts by.
+ * @returns {Promise<Array>} An array of blog post objects belonging to the specified domain.
+ */
+export const fetchPostsByDomain = async (domain) => {
+  try {
+    const response = await axios.get(`${API_URL}?domain=${encodeURIComponent(domain)}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts by domain:', error);
+    return [];
+  }
+};

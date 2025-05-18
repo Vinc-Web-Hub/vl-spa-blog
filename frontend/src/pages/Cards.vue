@@ -32,7 +32,7 @@ const cards = [
 
 <template>
   <div class="blog-container">
-  <h1 class="blog-list-title">Portfolio !</h1>
+  <h1 class="blog-list-title">Portfolio</h1>
   <div class="cards-container">
     <ImageCard
       v-for="(card, index) in cards"

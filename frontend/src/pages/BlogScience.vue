@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { fetchAllPosts } from '../services/blogService'
+import { fetchPostsByDomain } from '../services/blogService'
 import BlogCard from '../components/BlogCard.vue'
 
 const router = useRouter()
@@ -11,8 +11,8 @@ const error = ref(null)
 
 const loadSciencePosts = async () => {
   try {
-    const posts = await fetchAllPosts()
-    sciencePosts.value = posts.filter(post => post.domain === 'Science')
+    const posts = await fetchPostsByDomain('Science')
+    sciencePosts.value = posts
   } catch (err) {
     error.value = 'Failed to load posts.'
     console.error(err)

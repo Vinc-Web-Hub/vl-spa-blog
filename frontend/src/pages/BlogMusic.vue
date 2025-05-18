@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { fetchAllPosts } from '../services/blogService'
+import { fetchPostsByDomain } from '../services/blogService'
 import BlogCard from '../components/BlogCard.vue'
 
 const router = useRouter()
@@ -11,8 +11,8 @@ const error = ref(null)
 
 const loadMusicPosts = async () => {
   try {
-    const posts = await fetchAllPosts()
-    musicPosts.value = posts.filter(post => post.domain === 'Music')
+    const posts = await fetchPostsByDomain('Music')
+    musicPosts.value = posts
   } catch (err) {
     error.value = 'Failed to load posts.'
     console.error(err)
