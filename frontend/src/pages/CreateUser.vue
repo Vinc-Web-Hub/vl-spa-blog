@@ -98,7 +98,7 @@ select:focus {
 button[type="submit"] {
   margin-top: 0.5rem;
   padding: 0.6rem 0;
-  background: #6366f1;
+  background: #2563eb;
   color: #fff;
   border: none;
   border-radius: 0.5rem;
@@ -109,7 +109,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background: #4f46e5;
+  background: #1e40af
 }
 
 p {
