@@ -42,11 +42,12 @@ onBeforeUnmount(() => {
       <!-- Desktop Menu -->
       <nav class="desktop-menu">
         <RouterLink to="/" class="nav-link">Home</RouterLink>
-        <RouterLink to="/cards" class="nav-link">Cards</RouterLink>
+        <RouterLink to="/cards" class="nav-link">Portfolio</RouterLink>
         <RouterLink to="/blog-music" class="nav-link">Blog Music</RouterLink>
         <RouterLink to="/blog-science" class="nav-link">Blog Science</RouterLink>
         <RouterLink to="/blog-list" class="nav-link">Blog List</RouterLink>
         <RouterLink to="/add-post" class="nav-link">Add Post</RouterLink>
+        <RouterLink to="/login" class="nav-link">Login</RouterLink>
       </nav>
 
       <!-- Hamburger Button -->
@@ -59,12 +60,13 @@ onBeforeUnmount(() => {
     <transition name="fade-slide">
       <nav v-if="menuOpen" ref="dropdown" class="mobile-menu">
         <RouterLink to="/" class="mobile-link" @click="menuOpen = false">Home</RouterLink>
-        <RouterLink to="/cards" class="mobile-link" @click="menuOpen = false">Cards</RouterLink>
+        <RouterLink to="/cards" class="mobile-link" @click="menuOpen = false">Portfolio</RouterLink>
         <RouterLink to="/blog-music" class="mobile-link" @click="menuOpen = false">Blog Music</RouterLink>
         <RouterLink to="/blog-science" class="mobile-link" @click="menuOpen = false">Blog Science</RouterLink>
         <RouterLink to="/blog-list" class="mobile-link" @click="menuOpen = false">Blog List</RouterLink>
         <RouterLink to="/add-post" class="mobile-link" @click="menuOpen = false">Add Post</RouterLink>
-      </nav>
+        <RouterLink to="/login" class="mobile-link" @click="menuOpen = false">Login</RouterLink>      
+    </nav>
     </transition>
   </header>
 </template>
