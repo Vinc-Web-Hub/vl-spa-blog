@@ -7,7 +7,9 @@ import BlogList from '../pages/BlogList.vue'
 import BlogPost from '../pages/BlogPost.vue'
 import AddPost from '../pages/AddPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
-import UserLogin from '../pages/UserLogin.vue';
+import UserLogin from '../pages/UserLogin.vue'
+import TestForm from '../pages/TestForm.vue'
+
 
 const routes = [
   { path: '/', name: 'Main', component: Main },
@@ -18,7 +20,8 @@ const routes = [
   { path: '/blog/:id', name: 'BlogPost', component: BlogPost, props: true },
   { path: '/add-post', name: 'AddPost', component: AddPost },
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
-  { path: '/login', name: 'Login', component: UserLogin }
+  { path: '/login', name: 'Login', component: UserLogin },
+  { path: '/form', name: 'Form', component: TestForm }
 ]
 
 const router = createRouter({
