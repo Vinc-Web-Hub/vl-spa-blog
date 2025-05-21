@@ -7,20 +7,20 @@ import image3 from '../assets/images/image3-small.jpg'
 const cards = [
   {
     image: image1,
-    title: 'A table !',
-    description: 'Festin pour trois Rois.',
+    title: 'Tableau Noir !',
+    description: "Beaucoup d'attention",
     date: '2025-05-01'
   },
   {
     image: image2,
     title: 'Lecture',
-    description: 'Arrêt sur une page.',
+    description: 'Equation quadratique ',
     date: '2025-05-01'
   },
   {
     image: image3,
-    title: 'Musique',
-    description: 'Chi va piano va lontano.',
+    title: 'Loupe',
+    description: 'Encore plus près',
     date: '2025-05-01'
   },
 

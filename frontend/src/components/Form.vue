@@ -1,9 +1,9 @@
 <template>
   <div class="form-container">
-    <h2>Dynamic Form</h2>
+    <h2>{{ formTitle }}</h2>
     <form @submit.prevent="onSubmit">
       <div
-        v-for="(field, key) in schema"
+        v-for="(field, key) in visibleFields"
         :key="key"
         class="form-group"
       >
@@ -59,36 +59,47 @@
 </template>
 
 <script setup>
-import { reactive, toRefs, watchEffect } from 'vue';
-import { defineProps, defineEmits } from 'vue';
+import { reactive, computed, watchEffect } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 
 const props = defineProps({
   schema: {
     type: Object,
     required: true
   }
-});
+})
 
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['submit'])
 
-const formData = reactive({});
+const formData = reactive({})
 
-// Initialize formData with default/empty values
+// Computed title
+const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Form')
+
+// Filter out __meta__ for visible fields
+const visibleFields = computed(() => {
+  const copy = { ...props.schema }
+  delete copy.__meta__
+  return copy
+})
+
+// Initialize formData
 watchEffect(() => {
-  for (const key in props.schema) {
-    const field = props.schema[key];
+  for (const key in visibleFields.value) {
+    const field = visibleFields.value[key]
     if (!(key in formData)) {
       formData[key] =
         field.default ??
-        (field.type === 'string' || field.type === 'textarea' ? '' : null);
+        (field.type === 'string' || field.type === 'textarea' ? '' : null)
     }
   }
-});
+})
 
 function onSubmit() {
-  emit('submit', { ...formData });
+  emit('submit', { ...formData })
 }
 </script>
+
 
 <style scoped>
 .form-container {

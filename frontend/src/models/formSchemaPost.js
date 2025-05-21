@@ -1,5 +1,7 @@
-// src/schemas/formSchemaPost.js
 export const formSchemaPost = {
+  __meta__: {
+    title: 'Add New Post'
+  },
   title: { type: 'string', required: true },
   date: { type: 'date', required: true },
   domain: {
@@ -8,4 +10,4 @@ export const formSchemaPost = {
     required: true
   },
   content: { type: 'textarea', rows: 6, required: true }
-};
+}
