@@ -12,7 +12,7 @@
         <input
           v-if="field.type === 'string'"
           :id="key"
-          type="text"
+          :type="field.inputType || 'text'"
           v-model="formData[key]"
           :required="field.required"
         />

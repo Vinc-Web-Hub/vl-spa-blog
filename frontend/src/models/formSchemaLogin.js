@@ -8,6 +8,7 @@ export const formSchemaLogin = {
   },
   password: {
     type: 'string',
-    required: true
+    required: true,
+    inputType: 'password' // 👈 NEW!
   }
 }
