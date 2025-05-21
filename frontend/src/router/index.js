@@ -9,6 +9,7 @@ import AddPost from '../pages/AddPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
 import TestForm from '../pages/TestForm.vue'
+import AddPostDyn from '../pages/AddPostDynForm.vue'
 
 
 const routes = [
@@ -21,7 +22,8 @@ const routes = [
   { path: '/add-post', name: 'AddPost', component: AddPost },
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
   { path: '/login', name: 'Login', component: UserLogin },
-  { path: '/form', name: 'Form', component: TestForm }
+  { path: '/form', name: 'Form', component: TestForm },
+  { path: '/add-post-dyn', name: 'AddPostDyn', component: AddPostDyn }
 ]
 
 const router = createRouter({

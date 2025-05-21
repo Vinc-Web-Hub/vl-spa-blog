@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <h2>Dynamic Form</h2>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="handleSubmit">
       <div
         v-for="(field, key) in schema"
         :key="key"
@@ -9,6 +9,7 @@
       >
         <label :for="key">{{ key }}</label>
 
+        <!-- Input: string -->
         <input
           v-if="field.type === 'string'"
           :id="key"
@@ -17,6 +18,7 @@
           :required="field.required"
         />
 
+        <!-- Select: enum -->
         <select
           v-else-if="field.type === 'enum'"
           :id="key"
@@ -32,6 +34,7 @@
           </option>
         </select>
 
+        <!-- Textarea -->
         <textarea
           v-else-if="field.type === 'textarea'"
           :id="key"
@@ -40,6 +43,7 @@
           :required="field.required"
         ></textarea>
 
+        <!-- Date input -->
         <input
           v-else-if="field.type === 'date'"
           :id="key"
@@ -48,6 +52,7 @@
           :required="field.required"
         />
 
+        <!-- Unknown field type -->
         <div v-else class="error">
           Unsupported field type: {{ field.type }}
         </div>
@@ -59,41 +64,26 @@
 </template>
 
 <script setup>
-import { reactive, toRefs, watchEffect } from 'vue';
-import { defineProps, defineEmits } from 'vue';
-
-const props = defineProps({
-  schema: {
-    type: Object,
-    required: true
-  }
-});
-
-const emit = defineEmits(['submit']);
+import { reactive } from 'vue';
+import { formSchema as schema } from '../models/formSchema.js';
 
 const formData = reactive({});
 
-// Initialize formData with default/empty values
-watchEffect(() => {
-  for (const key in props.schema) {
-    const field = props.schema[key];
-    if (!(key in formData)) {
-      formData[key] =
-        field.default ??
-        (field.type === 'string' || field.type === 'textarea' ? '' : null);
-    }
-  }
-});
+for (const key in schema) {
+  const field = schema[key];
+  formData[key] =
+    field.default ??
+    (field.type === 'string' || field.type === 'textarea' ? '' : null);
+}
 
-function onSubmit() {
-  emit('submit', { ...formData });
+function handleSubmit() {
+  console.log('Form submitted:', { ...formData });
 }
 </script>
 
 <style scoped>
 .form-container {
   max-width: 500px;
-  width:100%;
   margin: 6rem auto 0 auto;
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   background: #fff;
@@ -166,4 +156,3 @@ button[type='submit']:hover {
   margin-top: 0.25rem;
 }
 </style>
-

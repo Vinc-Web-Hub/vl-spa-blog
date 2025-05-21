@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import Form from '../components/Form.vue'; // Adjust the path if needed
+import Form from '../components/FormBasic.vue'; // Adjust the path if needed
 </script>
 
 <style scoped>
