@@ -59,13 +59,17 @@
 </template>
 
 <script setup>
-import { reactive, computed, watchEffect } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import { defineProps, defineEmits } from 'vue'
 
 const props = defineProps({
   schema: {
     type: Object,
     required: true
+  },
+  initialData: {
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -83,17 +87,22 @@ const visibleFields = computed(() => {
   return copy
 })
 
-// Initialize formData
-watchEffect(() => {
-  for (const key in visibleFields.value) {
-    const field = visibleFields.value[key]
-    if (!(key in formData)) {
-      formData[key] =
-        field.default ??
-        (field.type === 'string' || field.type === 'textarea' ? '' : null)
+// Reinitialize formData when initialData is set or updated
+watch(
+  () => props.initialData,
+  (newData) => {
+    if (newData) {
+      for (const key in visibleFields.value) {
+        const field = visibleFields.value[key]
+        formData[key] =
+          newData[key] ??
+          field.default ??
+          (field.type === 'string' || field.type === 'textarea' ? '' : null)
+      }
     }
-  }
-})
+  },
+  { immediate: true }
+)
 
 function onSubmit() {
   emit('submit', { ...formData })

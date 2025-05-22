@@ -10,6 +10,7 @@ import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
 import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
+import ModifyPost from '../pages/ModifyPost.vue'
 
 const routes = [
   { path: '/', name: 'Main', component: Main },
@@ -22,7 +23,8 @@ const routes = [
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
   { path: '/login', name: 'Login', component: UserLogin },
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
-  { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan }
+  { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan },
+  { path: '/modify-post/:id', name: 'ModifyPost', component: ModifyPost, props: true }
 ]
 
 const router = createRouter({

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
-//const API_URL = 'http://localhost:3001/api/posts';
 console.log('API_URL:', API_URL);
+
 /**
  * Fetch all blog posts from the backend.
  * @returns {Promise<Array>} An array of blog post objects.
@@ -17,25 +17,45 @@ export const fetchAllPosts = async () => {
   }
 };
 
-// Fetch a single blog post by ID
 /**
  * Fetch a single blog post by its ID.
  * @param {string} id - The unique identifier of the post to fetch.
  * @returns {Promise<Object|null>} The blog post object or null if not found.
  */
 export const fetchPostById = async (id) => {
-  const response = await axios.get(`${API_URL}/${id}`)
-  return response.data
-}
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching post with ID ${id}:`, error);
+    return null;
+  }
+};
+
+/**
+ * Alias of fetchPostById for clarity when editing posts.
+ */
+export const getPostById = fetchPostById;
+
+/**
+ * Update an existing blog post by its ID.
+ * @param {string} id - The ID of the post to update.
+ * @param {Object} updatedData - The updated post data.
+ * @returns {Promise<Object|null>} The updated post or null if error occurred.
+ */
+export const updatePost = async (id, updatedData) => {
+  try {
+    const response = await axios.put(`${API_URL}/${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating post with ID ${id}:`, error);
+    return null;
+  }
+};
 
 /**
  * Create a new blog post by sending a POST request to the backend.
  * @param {Object} postData - The data of the new post to be created.
- * @param {string} postData.id - The unique identifier for the post.
- * @param {string} postData.title - The title of the post.
- * @param {string} postData.date - The publication date of the post.
- * @param {string} postData.content - The content/body of the post.
- * @param {string} postData.domain - The domain/category of the post (e.g., 'Music').
  * @returns {Promise<Object|null>} The created post object or null if an error occurred.
  */
 export const createPost = async (postData) => {

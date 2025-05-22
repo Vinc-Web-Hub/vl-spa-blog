@@ -45,4 +45,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+// PUT /api/posts/:id - Update a post by ID
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+
+    const updatedPost = await Post.findByIdAndUpdate(id, update, {
+      new: true,        // return the updated document
+      runValidators: true // ensure schema validation
+    });
+
+    if (!updatedPost) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json(updatedPost);
+  } catch (err) {
+    console.error('Error updating post:', err);
+    res.status(500).json({ error: 'Failed to update post' });
+  }
+});
+
 export default router;

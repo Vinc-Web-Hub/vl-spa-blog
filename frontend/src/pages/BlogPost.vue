@@ -44,20 +44,26 @@ watch(() => route.params.id, loadPost)
         <div class="blogpost-body">
           {{ post.content }}
         </div>
-      </div>
 
-      <!-- Back link based on domain -->
-      <div class="blogpost-back">
-        <RouterLink
-          :to="post.domain === 'Music' ? '/blog-music' : '/blog-science'"
-          class="blogpost-back-link"
-        >
-          ← Back to Blog {{ post.domain }}
-        </RouterLink>
+        <!-- Back link based on domain -->
+        <div class="blogpost-back">
+          <RouterLink
+            :to="post.domain === 'Music' ? '/blog-music' : '/blog-science'"
+            class="blogpost-back-link"
+          >
+            ← Back to Blog {{ post.domain }}
+          </RouterLink>
+        </div>
+
+        <!-- Only show Edit button when post is available -->
+        <router-link :to="`/modify-post/${post._id}`">
+          <button class="submit-button">Edit Post</button>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .blogpost-container {
@@ -104,4 +110,24 @@ watch(() => route.params.id, loadPost)
 .blogpost-back-link:hover {
   text-decoration: underline;
 }
+
+.submit-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #2563eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 </style>
