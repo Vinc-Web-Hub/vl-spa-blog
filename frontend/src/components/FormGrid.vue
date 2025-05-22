@@ -100,8 +100,11 @@ const gridTemplate = computed(() => ({
 // Positioning of inputs
 const gridStyle = (field) => ({
   gridColumn: `${field.col ?? 1} / span ${field.colSpan ?? 1}`,
-  gridRow: `${field.row ?? 1} / span ${field.rowSpan ?? 1}`
+  gridRow: `${field.row ?? 1} / span ${field.rowSpan ?? 1}`,
+  alignSelf: field.align ?? 'stretch',
+  justifySelf: field.justify ?? 'stretch'
 })
+
 
 // Submit button spans entire width
 const submitButtonStyle = computed(() => ({
