@@ -1,0 +1,203 @@
+<template>
+  <div class="form-container">
+    <h2>{{ formTitle }}</h2>
+    <form @submit.prevent="onSubmit" class="grid-form" :style="gridTemplate">
+      <div
+        v-for="(field, key) in visibleFields"
+        :key="key"
+        class="form-group"
+        :style="gridStyle(field)"
+      >
+        <label :for="key">{{ key }}</label>
+
+        <input
+          v-if="field.type === 'string'"
+          :id="key"
+          :type="field.inputType || 'text'"
+          v-model="formData[key]"
+          :required="field.required"
+        />
+
+        <select
+          v-else-if="field.type === 'enum'"
+          :id="key"
+          v-model="formData[key]"
+          :required="field.required"
+        >
+          <option v-for="option in field.values" :key="option" :value="option">
+            {{ option }}
+          </option>
+        </select>
+
+        <textarea
+          v-else-if="field.type === 'textarea'"
+          :id="key"
+          v-model="formData[key]"
+          :rows="field.rows"
+          :required="field.required"
+        ></textarea>
+
+        <input
+          v-else-if="field.type === 'date'"
+          :id="key"
+          type="date"
+          v-model="formData[key]"
+          :required="field.required"
+        />
+
+        <div v-else class="error">
+          Unsupported field type: {{ field.type }}
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button" :style="submitButtonStyle">
+        Submit
+      </button>
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { reactive, computed, watchEffect } from 'vue'
+
+const props = defineProps({
+  schema: {
+    type: Object,
+    required: true
+  }
+})
+
+const emit = defineEmits(['submit'])
+
+const formData = reactive({})
+
+// Title
+const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Grid Form')
+
+// Fields without __meta__
+const visibleFields = computed(() => {
+  const { __meta__, ...fields } = props.schema
+  return fields
+})
+
+// Dynamically compute the number of columns from the highest col + colSpan
+const totalColumns = computed(() => {
+  let maxCol = 1
+  for (const field of Object.values(visibleFields.value)) {
+    const startCol = field.col ?? 1
+    const span = field.colSpan ?? 1
+    const endCol = startCol + span - 1
+    if (endCol > maxCol) maxCol = endCol
+  }
+  return maxCol
+})
+
+// CSS grid template style
+const gridTemplate = computed(() => ({
+  gridTemplateColumns: `repeat(${totalColumns.value}, 1fr)`
+}))
+
+// Positioning of inputs
+const gridStyle = (field) => ({
+  gridColumn: `${field.col ?? 1} / span ${field.colSpan ?? 1}`,
+  gridRow: `${field.row ?? 1} / span ${field.rowSpan ?? 1}`
+})
+
+// Submit button spans entire width
+const submitButtonStyle = computed(() => ({
+  gridColumn: `1 / span ${totalColumns.value}`
+}))
+
+// Initialize default values
+watchEffect(() => {
+  for (const key in visibleFields.value) {
+    const field = visibleFields.value[key]
+    if (!(key in formData)) {
+      formData[key] =
+        field.default ??
+        (field.type === 'string' || field.type === 'textarea' ? '' : null)
+    }
+  }
+})
+
+function onSubmit() {
+  emit('submit', { ...formData })
+}
+</script>
+
+<style scoped>
+.form-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 6rem auto 0 auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.grid-form {
+  display: grid;
+  gap: 1rem;
+  grid-auto-rows: minmax(80px, auto);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+.submit-button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background: #1e40af;
+}
+
+.error {
+  font-size: 0.95rem;
+  color: #dc2626;
+  margin-top: 0.25rem;
+}
+</style>

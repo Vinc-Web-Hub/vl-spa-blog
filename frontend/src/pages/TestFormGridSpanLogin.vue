@@ -1,13 +1,21 @@
+<template>
+  <div class="test-wrapper">
+    <FormGrid :schema="loginSchema" @submit="login" />
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+</template>
+
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import Form from '../components/Form.vue'
-import { formSchemaLogin } from '../models/formSchemaLogin.js'
+import FormGrid from '../components/FormGrid.vue'
+import formSchemaLogin from '../models/formGridSpanSchemaLogin.js'
 
 const loginSchema = formSchemaLogin
 const errorMessage = ref('')
 const router = useRouter()
+
 
 const login = async ({ username, password }) => {
   try {
@@ -27,12 +35,12 @@ const login = async ({ username, password }) => {
 }
 </script>
 
-<template>
-  <Form :schema="loginSchema" @submit="login" />
-  <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-</template>
-
 <style scoped>
+.test-wrapper {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
 .error {
   color: #dc2626;
   text-align: center;

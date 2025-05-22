@@ -8,8 +8,8 @@ import BlogPost from '../pages/BlogPost.vue'
 import AddPost from '../pages/AddPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
-import TestForm from '../pages/TestForm.vue'
-
+import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
+import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
 
 const routes = [
   { path: '/', name: 'Main', component: Main },
@@ -21,7 +21,8 @@ const routes = [
   { path: '/add-post', name: 'AddPost', component: AddPost },
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
   { path: '/login', name: 'Login', component: UserLogin },
-  { path: '/form', name: 'Form', component: TestForm }
+  { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
+  { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan }
 ]
 
 const router = createRouter({
