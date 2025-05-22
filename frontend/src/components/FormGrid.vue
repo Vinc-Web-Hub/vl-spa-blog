@@ -9,10 +9,14 @@
   :style="gridStyle(field)"
 >
   <template v-if="field.type === 'section'">
-    <h3>{{ field.label || key }}</h3>
+    <div class="section-title" @click="openSections[key] = !openSections[key]">
+      <span>{{ field.label || key }}</span>
+      <span class="toggle-icon">{{ openSections[key] ? '▾' : '▸' }}</span>
+    </div>
   </template>
 
-  <template v-else>
+    <template v-else-if="shouldShowField(key)">
+
     <label :for="key">{{ key }}</label>
 
     <input
@@ -56,7 +60,6 @@
   </template>
 </div>
 
-
       <button type="submit" class="submit-button" :style="submitButtonStyle">
         Submit
       </button>
@@ -65,7 +68,9 @@
 </template>
 
 <script setup>
-import { reactive, computed, watchEffect } from 'vue'
+import { reactive, ref, computed, watchEffect } from 'vue'
+
+const openSections = reactive({})
 
 const props = defineProps({
   schema: {
@@ -75,7 +80,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['submit'])
-
 const formData = reactive({})
 
 // Title
@@ -121,13 +125,36 @@ const submitButtonStyle = computed(() => ({
 watchEffect(() => {
   for (const key in visibleFields.value) {
     const field = visibleFields.value[key]
-    if (!(key in formData)) {
+    if (field.type === 'section' && !(key in openSections)) {
+      openSections[key] = true // sections open by default
+    }
+    if (!(key in formData) && field.type !== 'section') {
       formData[key] =
         field.default ??
         (field.type === 'string' || field.type === 'textarea' ? '' : null)
     }
   }
 })
+
+function shouldShowField(fieldKey) {
+  const field = visibleFields.value[fieldKey]
+  if (!field || field.type === 'section') return true
+
+  // Find the closest section *before* this field by row number
+  const fieldRow = field.row ?? 1
+  let closestSectionKey = null
+  let closestRow = -1
+
+  for (const [key, value] of Object.entries(visibleFields.value)) {
+    if (value.type === 'section' && (value.row ?? 0) < fieldRow && (value.row ?? 0) > closestRow) {
+      closestSectionKey = key
+      closestRow = value.row
+    }
+  }
+
+  return closestSectionKey ? openSections[closestSectionKey] : true
+}
+
 
 function onSubmit() {
   emit('submit', { ...formData })
@@ -211,13 +238,34 @@ textarea:focus {
 }
 
 .section-header {
+  grid-column: 1 / -1;
+  background: #f3f4f6;
+  border-bottom: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 0.5rem 0;
-  background-color: #f3f4f6;
-  border-bottom: 1px solid #d1d5db;
-  margin-top: 1rem;
-  border-radius: 0.5rem;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.toggle-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-left: 0.5rem;
 }
 
 .section-header h3 {

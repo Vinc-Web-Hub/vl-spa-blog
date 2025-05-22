@@ -6,7 +6,7 @@
 
 <script setup>
 import FormGrid from '../components/FormGrid.vue'
-import schema from '../models/formGridSpanSchema.js'
+import schema from '../models/formGridSpanSchemaSection.js'
 
 function handleSubmit(data) {
   console.log('Submitted Data:', data)
