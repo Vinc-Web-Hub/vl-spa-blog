@@ -33,7 +33,7 @@ language: {
 },
 section4: {
   type: 'section',
-  label: 'Preferences',
+  label: 'Compléments',
   row: 5,
   col: 1
 },
@@ -47,13 +47,13 @@ section4: {
   },
 altname: {
   type: 'string',
-  row: 7,
+  row: 8,
   col: 1
 },
    other: {
     type: 'textarea',
     rows: 4,
-    row: 8,
+    row: 9,
     col: 1,
     colSpan: 2,
     rowSpan: 2

@@ -1,26 +1,3 @@
-<template>
-  <div class="container">
-    <h1>Create New User</h1>
-    <form @submit.prevent="createUser">
-      <label>Username:</label>
-      <input v-model="username" required />
-
-      <label>Password:</label>
-      <input type="password" v-model="password" required />
-
-      <label>Role:</label>
-      <select v-model="role">
-        <option value="admin">Admin</option>
-        <option value="editor">Editor</option>
-        <option value="viewer">Viewer</option>
-      </select>
-
-      <button type="submit">Create User</button>
-    </form>
-    <p v-if="message">{{ message }}</p>
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
@@ -47,6 +24,29 @@ const createUser = async () => {
   }
 }
 </script>
+
+<template>
+  <div class="container">
+    <h1>Create New User</h1>
+    <form @submit.prevent="createUser">
+      <label>Username:</label>
+      <input v-model="username" required />
+
+      <label>Password:</label>
+      <input type="password" v-model="password" required />
+
+      <label>Role:</label>
+      <select v-model="role">
+        <option value="admin">Admin</option>
+        <option value="editor">Editor</option>
+        <option value="viewer">Viewer</option>
+      </select>
+
+      <button type="submit">Create User</button>
+    </form>
+    <p v-if="message">{{ message }}</p>
+  </div>
+</template>
 
 <style scoped>
 .container {
