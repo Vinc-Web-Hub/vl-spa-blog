@@ -2,53 +2,60 @@
   <div class="form-container">
     <h2>{{ formTitle }}</h2>
     <form @submit.prevent="onSubmit" class="grid-form" :style="gridTemplate">
-      <div
-        v-for="(field, key) in visibleFields"
-        :key="key"
-        class="form-group"
-        :style="gridStyle(field)"
-      >
-        <label :for="key">{{ key }}</label>
+<div
+  v-for="(field, key) in visibleFields"
+  :key="key"
+  :class="['form-group', field.type === 'section' ? 'section-header' : '']"
+  :style="gridStyle(field)"
+>
+  <template v-if="field.type === 'section'">
+    <h3>{{ field.label || key }}</h3>
+  </template>
 
-        <input
-          v-if="field.type === 'string'"
-          :id="key"
-          :type="field.inputType || 'text'"
-          v-model="formData[key]"
-          :required="field.required"
-        />
+  <template v-else>
+    <label :for="key">{{ key }}</label>
 
-        <select
-          v-else-if="field.type === 'enum'"
-          :id="key"
-          v-model="formData[key]"
-          :required="field.required"
-        >
-          <option v-for="option in field.values" :key="option" :value="option">
-            {{ option }}
-          </option>
-        </select>
+    <input
+      v-if="field.type === 'string'"
+      :id="key"
+      :type="field.inputType || 'text'"
+      v-model="formData[key]"
+      :required="field.required"
+    />
 
-        <textarea
-          v-else-if="field.type === 'textarea'"
-          :id="key"
-          v-model="formData[key]"
-          :rows="field.rows"
-          :required="field.required"
-        ></textarea>
+    <select
+      v-else-if="field.type === 'enum'"
+      :id="key"
+      v-model="formData[key]"
+      :required="field.required"
+    >
+      <option v-for="option in field.values" :key="option" :value="option">
+        {{ option }}
+      </option>
+    </select>
 
-        <input
-          v-else-if="field.type === 'date'"
-          :id="key"
-          type="date"
-          v-model="formData[key]"
-          :required="field.required"
-        />
+    <textarea
+      v-else-if="field.type === 'textarea'"
+      :id="key"
+      v-model="formData[key]"
+      :rows="field.rows"
+      :required="field.required"
+    ></textarea>
 
-        <div v-else class="error">
-          Unsupported field type: {{ field.type }}
-        </div>
-      </div>
+    <input
+      v-else-if="field.type === 'date'"
+      :id="key"
+      type="date"
+      v-model="formData[key]"
+      :required="field.required"
+    />
+
+    <div v-else class="error">
+      Unsupported field type: {{ field.type }}
+    </div>
+  </template>
+</div>
+
 
       <button type="submit" class="submit-button" :style="submitButtonStyle">
         Submit
@@ -99,12 +106,11 @@ const gridTemplate = computed(() => ({
 
 // Positioning of inputs
 const gridStyle = (field) => ({
-  gridColumn: `${field.col ?? 1} / span ${field.colSpan ?? 1}`,
+  gridColumn: `${field.col ?? 1} / span ${field.colSpan ?? (field.type === 'section' ? totalColumns.value : 1)}`,
   gridRow: `${field.row ?? 1} / span ${field.rowSpan ?? 1}`,
   alignSelf: field.align ?? 'stretch',
   justifySelf: field.justify ?? 'stretch'
 })
-
 
 // Submit button spans entire width
 const submitButtonStyle = computed(() => ({
@@ -203,4 +209,22 @@ textarea:focus {
   color: #dc2626;
   margin-top: 0.25rem;
 }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  background-color: #f3f4f6;
+  border-bottom: 1px solid #d1d5db;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+}
+
 </style>

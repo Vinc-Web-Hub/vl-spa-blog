@@ -1,10 +1,3 @@
-<template>
-  <div class="test-wrapper">
-    <FormGrid :schema="loginSchema" @submit="login" />
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
@@ -34,6 +27,13 @@ const login = async ({ username, password }) => {
   }
 }
 </script>
+
+<template>
+  <div class="test-wrapper">
+    <FormGrid :schema="loginSchema" @submit="login" />
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+</template>
 
 <style scoped>
 .test-wrapper {
