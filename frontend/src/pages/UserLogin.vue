@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import Form from '../components/Form.vue'
-import { formSchemaLogin } from '../models/formSchemaLogin.js'
+import formSchemaLogin from '../models/formSchemaLogin.js'
 
 const loginSchema = formSchemaLogin
 const errorMessage = ref('')

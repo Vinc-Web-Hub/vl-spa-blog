@@ -1,4 +1,4 @@
-export const formSchemaLogin = {
+export default{
   __meta__: {
     title: 'User Login'
   },
