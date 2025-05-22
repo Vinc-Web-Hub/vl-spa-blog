@@ -1,4 +1,4 @@
-export const formSchemaPost = {
+export default {
   __meta__: {
     title: 'Add New Post'
   },

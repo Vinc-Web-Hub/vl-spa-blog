@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { createPost } from '../services/blogService';
 import Form from '../components/Form.vue';
-import { formSchemaPost as schema } from '../models/formSchemaPost.js';
+import formSchemaPost from '../models/formSchemaPost.js';
 
 const router = useRouter();
 
@@ -19,7 +19,7 @@ const handleSubmit = async (formData) => {
 
 <template>
   <div class="form-outer">
-      <Form :schema="schema" @submit="handleSubmit" />
+      <Form :schema="formSchemaPost" @submit="handleSubmit" />
   </div>
 </template>
 

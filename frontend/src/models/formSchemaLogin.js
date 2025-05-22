@@ -1,4 +1,4 @@
-export default{
+export default {
   __meta__: {
     title: 'User Login'
   },

@@ -1,3 +1,11 @@
+There are 2 Dynamic Form components : Form.vue and FormGrid.vue
+
+Form.vue is a simple mono-column component
+FormGrid.vue allows to create complex form, with several columns, and offers span over rows and columns
+and form sections.
+
+The Forms are described within .js files called Schemas 
+
 Options for fields layout wihthin a form :
 align: maps to align-self → controls vertical alignment
   Values: start, center, end, stretch
