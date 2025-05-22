@@ -2,66 +2,112 @@
   <div class="form-container">
     <h2>{{ formTitle }}</h2>
     <form @submit.prevent="onSubmit" class="grid-form" :style="gridTemplate">
-<div
-  v-for="(field, key) in visibleFields"
-  :key="key"
-  :class="['form-group', field.type === 'section' ? 'section-header' : '']"
-  :style="gridStyle(field)"
->
-  <template v-if="field.type === 'section'">
-    <div class="section-title" @click="openSections[key] = !openSections[key]">
-      <span>{{ field.label || key }}</span>
-      <span class="toggle-icon">{{ openSections[key] ? '▾' : '▸' }}</span>
-    </div>
-  </template>
+      <div
+        v-for="(field, key) in visibleFields"
+        :key="key"
+        :class="['form-group', field.type === 'section' ? 'section-header' : '']"
+        :style="gridStyle(field)"
+      >
+        <template v-if="field.type === 'section'">
+          <div class="section-title" @click="toggleSection(key)">
+            <span>{{ field.label || key }}</span>
+            <span class="toggle-icon">{{ openSections[key] ? '▾' : '▸' }}</span>
+          </div>
+        </template>
 
-    <template v-else-if="shouldShowField(key)">
+        <template v-else-if="shouldShowField(key)">
+          <label :for="getFieldId(key)">{{ field.label || formatLabel(key) }}</label>
 
-    <label :for="key">{{ key }}</label>
+          <input
+            v-if="field.type === 'string'"
+            :id="getFieldId(key)"
+            :type="field.inputType || 'text'"
+            v-model="formData[key]"
+            :required="field.required"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+          />
 
-    <input
-      v-if="field.type === 'string'"
-      :id="key"
-      :type="field.inputType || 'text'"
-      v-model="formData[key]"
-      :required="field.required"
-    />
+          <select
+            v-else-if="field.type === 'enum'"
+            :id="getFieldId(key)"
+            v-model="formData[key]"
+            :required="field.required"
+            :disabled="field.disabled"
+          >
+            <option value="" disabled>{{ field.placeholder || 'Select an option' }}</option>
+            <option v-for="option in field.values" :key="option" :value="option">
+              {{ option }}
+            </option>
+          </select>
 
-    <select
-      v-else-if="field.type === 'enum'"
-      :id="key"
-      v-model="formData[key]"
-      :required="field.required"
-    >
-      <option v-for="option in field.values" :key="option" :value="option">
-        {{ option }}
-      </option>
-    </select>
+          <textarea
+            v-else-if="field.type === 'textarea'"
+            :id="getFieldId(key)"
+            v-model="formData[key]"
+            :rows="field.rows || 4"
+            :required="field.required"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+          ></textarea>
 
-    <textarea
-      v-else-if="field.type === 'textarea'"
-      :id="key"
-      v-model="formData[key]"
-      :rows="field.rows"
-      :required="field.required"
-    ></textarea>
+          <input
+            v-else-if="field.type === 'date'"
+            :id="getFieldId(key)"
+            type="date"
+            v-model="formData[key]"
+            :required="field.required"
+            :disabled="field.disabled"
+          />
 
-    <input
-      v-else-if="field.type === 'date'"
-      :id="key"
-      type="date"
-      v-model="formData[key]"
-      :required="field.required"
-    />
+          <input
+            v-else-if="field.type === 'number'"
+            :id="getFieldId(key)"
+            type="number"
+            v-model.number="formData[key]"
+            :required="field.required"
+            :min="field.min"
+            :max="field.max"
+            :step="field.step"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+          />
 
-    <div v-else class="error">
-      Unsupported field type: {{ field.type }}
-    </div>
-  </template>
-</div>
+          <input
+            v-else-if="field.type === 'email'"
+            :id="getFieldId(key)"
+            type="email"
+            v-model="formData[key]"
+            :required="field.required"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+          />
 
-      <button type="submit" class="submit-button" :style="submitButtonStyle">
-        Submit
+          <div v-else-if="field.type === 'checkbox'" class="checkbox-container">
+            <input
+              :id="getFieldId(key)"
+              type="checkbox"
+              v-model="formData[key]"
+              :required="field.required"
+              :disabled="field.disabled"
+            />
+            <label :for="getFieldId(key)" class="checkbox-label">
+              {{ field.checkboxLabel || field.label || formatLabel(key) }}
+            </label>
+          </div>
+
+          <div v-else class="error">
+            Unsupported field type: {{ field.type }}
+          </div>
+
+          <div v-if="field.help" class="help-text">
+            {{ field.help }}
+          </div>
+        </template>
+      </div>
+
+      <button type="submit" class="submit-button" :style="submitButtonStyle" :disabled="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : (schema.__meta__?.submitText || 'Submit') }}
       </button>
     </form>
   </div>
@@ -71,6 +117,7 @@
 import { reactive, ref, computed, watchEffect } from 'vue'
 
 const openSections = reactive({})
+const isSubmitting = ref(false)
 
 const props = defineProps({
   schema: {
@@ -100,7 +147,7 @@ const totalColumns = computed(() => {
     const endCol = startCol + span - 1
     if (endCol > maxCol) maxCol = endCol
   }
-  return maxCol
+  return Math.max(maxCol, props.schema.__meta__?.minColumns || 1)
 })
 
 // CSS grid template style
@@ -111,7 +158,7 @@ const gridTemplate = computed(() => ({
 // Positioning of inputs
 const gridStyle = (field) => ({
   gridColumn: `${field.col ?? 1} / span ${field.colSpan ?? (field.type === 'section' ? totalColumns.value : 1)}`,
-  gridRow: `${field.row ?? 1} / span ${field.rowSpan ?? 1}`,
+  gridRow: field.row ? `${field.row} / span ${field.rowSpan ?? 1}` : 'auto',
   alignSelf: field.align ?? 'stretch',
   justifySelf: field.justify ?? 'stretch'
 })
@@ -123,41 +170,82 @@ const submitButtonStyle = computed(() => ({
 
 // Initialize default values
 watchEffect(() => {
-  for (const key in visibleFields.value) {
-    const field = visibleFields.value[key]
+  for (const [key, field] of Object.entries(visibleFields.value)) {
     if (field.type === 'section' && !(key in openSections)) {
-      openSections[key] = true // sections open by default
+      openSections[key] = field.open !== false // sections open by default unless explicitly closed
     }
     if (!(key in formData) && field.type !== 'section') {
-      formData[key] =
-        field.default ??
-        (field.type === 'string' || field.type === 'textarea' ? '' : null)
+      formData[key] = getDefaultValue(field)
     }
   }
 })
+
+function getDefaultValue(field) {
+  if (field.default !== undefined) return field.default
+  
+  switch (field.type) {
+    case 'string':
+    case 'textarea':
+    case 'email':
+      return ''
+    case 'number':
+      return null
+    case 'checkbox':
+      return false
+    case 'date':
+      return ''
+    case 'enum':
+      return ''
+    default:
+      return null
+  }
+}
 
 function shouldShowField(fieldKey) {
   const field = visibleFields.value[fieldKey]
   if (!field || field.type === 'section') return true
 
   // Find the closest section *before* this field by row number
-  const fieldRow = field.row ?? 1
+  const fieldRow = field.row ?? Infinity
   let closestSectionKey = null
   let closestRow = -1
 
   for (const [key, value] of Object.entries(visibleFields.value)) {
-    if (value.type === 'section' && (value.row ?? 0) < fieldRow && (value.row ?? 0) > closestRow) {
-      closestSectionKey = key
-      closestRow = value.row
+    if (value.type === 'section') {
+      const sectionRow = value.row ?? 0
+      if (sectionRow <= fieldRow && sectionRow > closestRow) {
+        closestSectionKey = key
+        closestRow = sectionRow
+      }
     }
   }
 
   return closestSectionKey ? openSections[closestSectionKey] : true
 }
 
+function toggleSection(key) {
+  openSections[key] = !openSections[key]
+}
 
-function onSubmit() {
-  emit('submit', { ...formData })
+function getFieldId(key) {
+  return `field-${key}`
+}
+
+function formatLabel(key) {
+  return key.replace(/([A-Z])/g, ' $1')
+    .replace(/^./, str => str.toUpperCase())
+    .trim()
+}
+
+async function onSubmit() {
+  if (isSubmitting.value) return
+  
+  isSubmitting.value = true
+  try {
+    await emit('submit', { ...formData })
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
@@ -169,87 +257,144 @@ function onSubmit() {
   padding: 2rem;
   background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h2 {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
+  color: #111827;
+  letter-spacing: -0.01em;
 }
 
 .grid-form {
   display: grid;
-  gap: 1rem;
-  grid-auto-rows: minmax(80px, auto);
+  gap: 1.5rem;
+  grid-auto-rows: minmax(auto, auto);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
 label {
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #374151;
+  letter-spacing: 0.01em;
 }
 
-input,
+input:not([type="checkbox"]),
 select,
 textarea {
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+  padding: 0.65rem 1rem;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
-  font-size: 1rem;
-  background: #f9fafb;
-  transition: border-color 0.2s;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: all 0.2s ease;
+  color: #111827;
 }
 
-input:focus,
+input:not([type="checkbox"]):focus,
 select:focus,
 textarea:focus {
-  border-color: #6366f1;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   outline: none;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  -webkit-appearance: none;
+}
+
+textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.checkbox-label {
+  margin: 0;
+  cursor: pointer;
+}
+
+.help-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
 }
 
 .submit-button {
   margin-top: 1rem;
-  padding: 0.75rem;
-  background: #2563eb;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
   color: white;
   border: none;
   border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 0.95rem;
   cursor: pointer;
-  width: 100%;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
 }
 
-.submit-button:hover {
-  background: #1e40af;
+.submit-button:hover:not(:disabled) {
+  background: #2563eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
 }
 
 .error {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   color: #dc2626;
   margin-top: 0.25rem;
+  padding: 0.5rem;
+  background-color: #fef2f2;
+  border-radius: 0.375rem;
+  border: 1px solid #fecaca;
 }
 
 .section-header {
   grid-column: 1 / -1;
-  background: #f3f4f6;
-  border-bottom: 1px solid #d1d5db;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
 .section-title {
@@ -260,19 +405,29 @@ textarea:focus {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.section-title:hover {
+  background-color: #f3f4f6;
 }
 
 .toggle-icon {
   font-size: 1.25rem;
   line-height: 1;
-  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
 }
 
-.section-header h3 {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #374151;
+@media (max-width: 768px) {
+  .form-container {
+    margin-top: 4rem;
+    padding: 1.5rem;
+  }
+  
+  .grid-form {
+    gap: 1.25rem;
+  }
 }
-
 </style>
