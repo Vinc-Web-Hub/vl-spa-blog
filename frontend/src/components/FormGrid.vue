@@ -255,7 +255,7 @@ async function onSubmit() {
   width: 100%;
   margin: 6rem auto 0 auto;
   padding: 2rem;
-  background: #fff;
+  background: white;
   border-radius: 1rem;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -266,7 +266,7 @@ h2 {
   font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
-  color: #111827;
+  color: var(--color-text-dark);
   letter-spacing: -0.01em;
 }
 
@@ -285,7 +285,7 @@ h2 {
 label {
   font-weight: 500;
   font-size: 0.95rem;
-  color: #374151;
+  color: var(--color-text-dark);
   letter-spacing: 0.01em;
 }
 
@@ -294,12 +294,12 @@ select,
 textarea {
   width: 100%;
   padding: 0.65rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-header-light);
   border-radius: 0.5rem;
   font-size: 0.95rem;
-  background: #fff;
+  background: white;
   transition: all 0.2s ease;
-  color: #111827;
+  color: var(--color-text-dark);
 }
 
 input:not([type="checkbox"]):focus,
@@ -313,8 +313,8 @@ textarea:focus {
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background-color: #f9fafb;
-  color: #9ca3af;
+  background-color: white;
+  color: var(--color-header-light);
   cursor: not-allowed;
 }
 
@@ -351,7 +351,7 @@ textarea {
 
 .help-text {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(-—color-text-grey);
   margin-top: 0.25rem;
 }
 
@@ -381,10 +381,10 @@ textarea {
 
 .error {
   font-size: 0.875rem;
-  color: var(--color-test-error);
+  color: var(--color-text-error);
   margin-top: 0.25rem;
   padding: 0.5rem;
-  background-color: #fef2f2;
+  background-color: var(--color-header-light);
   border-radius: 0.375rem;
   border: 1px solid #fecaca;
 }
@@ -400,7 +400,7 @@ textarea {
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #374151;
+  color: val(--color-text-dark);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -411,7 +411,7 @@ textarea {
 }
 
 .section-title:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-header-light);
 }
 
 .toggle-icon {

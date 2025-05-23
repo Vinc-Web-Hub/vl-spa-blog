@@ -127,7 +127,7 @@ body {
 }
 
 .nav-link {
-  color: #333;
+  color: var(--color-text-dark);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -138,7 +138,7 @@ body {
 }
 
 .nav-link:hover {
-  background-color: #f5f5f5;
+  background-color: var(--color-header-ultralight);
   color: var(--color-primary);
 }
 
@@ -183,7 +183,7 @@ body {
 }
 
 .mobile-link {
-  color: #333;
+  color: var(--color-text-dark);
   text-decoration: none;
   padding: 0.6rem 1.25rem;
   font-size: 0.95rem;
@@ -193,14 +193,14 @@ body {
 }
 
 .mobile-link:hover {
-  background-color: #f5f5f5;
+  background-color: var(--color-header-ultralight);
   border-left-color: var(--color-primary);
 }
 
 .mobile-link.router-link-active {
   color: var(--color-primary);
   border-left-color: var(--color-primary);
-  background-color: #f0f7ff;
+  background-color: var(--color-header-ultralight);
 }
 
 /* Animation for mobile menu */

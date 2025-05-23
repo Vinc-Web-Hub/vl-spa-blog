@@ -91,7 +91,7 @@ select {
 
 input:focus,
 select:focus {
-  border-color: #6366f1;
+  border-color:var(--color-primary-dark);
   outline: none;
 }
 
@@ -99,7 +99,7 @@ button[type="submit"] {
   margin-top: 0.5rem;
   padding: 0.6rem 0;
   background: var(--color-primary);
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -109,14 +109,14 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background: var(--color-primary-dark)
+  background: var(--color-primary-dark);
 }
 
 p {
   text-align: center;
   margin-top: 0.5rem;
   font-size: 1rem;
-  color: #16a34a;
+  color: var(--color-green);
 }
 
 p:empty {

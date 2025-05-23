@@ -159,7 +159,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #6366f1;
+  border-color: var(--color-primary-dark);
   outline: none;
 }
 
@@ -167,7 +167,7 @@ button[type='submit'] {
   margin-top: 0.5rem;
   padding: 0.6rem 0;
   background: var(--color-primary);
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;

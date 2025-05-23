@@ -7,10 +7,12 @@ html, body {
 :root {
   --color-primary: #3b82f6;
   --color-primary-dark: #2563eb;
-  --color-button-text: #fff;
   --color-header-light: #f3f4f6;
   --color-header-ultralight: #f9fafb;
   --color-text-error: #dc2626;
-
+  --color-text-dark:#374151;
+  --color-text-grey: #6b7280;
+  --color-text-light: #fff;
+  --color-green: #16a34a;
   /* Add more as needed */
 }

@@ -73,7 +73,7 @@ const formattedDate = computed(() => {
 
 .card-date {
   font-size: 0.875rem;
-  color: var(--color-light-text);
+  color: var(--color-text-light);
 }
 
 .card-content {

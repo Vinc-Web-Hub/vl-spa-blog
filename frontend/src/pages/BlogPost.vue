@@ -81,12 +81,12 @@ watch(() => route.params.id, loadPost)
 .blogpost-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #2d3748;
+  color: var(--color-text-dark);
   margin-bottom: 0.5rem;
 }
 
 .blogpost-meta {
-  color: #6b7280;
+  color: var(--color-text-grey);
   font-size: 0.9rem;
 }
 
@@ -94,7 +94,7 @@ watch(() => route.params.id, loadPost)
   margin-top: 1rem;
   font-size: 1.125rem;
   white-space: pre-line;
-  color: #374151;
+  color: var(--color-text-grey);
 }
 
 .blogpost-back {
