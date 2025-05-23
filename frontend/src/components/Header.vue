@@ -174,7 +174,7 @@ body {
   top: 70px; /* Height of the header */
   right: 0;
   width: 250px;
-  background-color: white;
+  background-color: var(--color-myapp-white);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 0 8px;
   padding: 0.5rem 0;

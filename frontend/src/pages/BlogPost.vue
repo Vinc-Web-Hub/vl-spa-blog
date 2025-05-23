@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { fetchPostById } from '../services/blogService'
+import { fetchPostById, deletePost } from '../services/blogService'
 
 const route = useRoute()
 const router = useRouter()
@@ -29,6 +29,17 @@ const loadPost = async () => {
   }
 }
 
+const handleDelete = async () => {
+  if (confirm('Are you sure you want to delete this post?')) {
+    try {
+      await deletePost(post.value._id)
+      router.push('/blog-list')
+    } catch (err) {
+      console.error('Delete failed:', err)
+      alert('Failed to delete post.')
+    }
+  }
+}
 onMounted(loadPost)
 watch(() => route.params.id, loadPost)
 </script>
@@ -54,11 +65,15 @@ watch(() => route.params.id, loadPost)
             ← Back to Blog {{ post.domain }}
           </RouterLink>
         </div>
-
-        <!-- Only show Edit button when post is available -->
-        <router-link :to="`/modify-post/${post._id}`">
-          <button class="submit-button">Edit Post</button>
-        </router-link>
+        <!-- Button container -->
+          <div class="button-group">
+            <!-- Only show Edit button when post is available -->
+            <router-link :to="`/modify-post/${post._id}`">
+              <button class="submit-button">Edit Post</button>
+            </router-link>
+           <!-- Delete Button -->
+            <button class="submit-button delete-button" @click="handleDelete">Delete Post</button>
+          </div>
       </div>
     </div>
   </div>
@@ -111,11 +126,16 @@ watch(() => route.params.id, loadPost)
   text-decoration: underline;
 }
 
+.button-group {
+  display: flex;
+  gap: 1rem; /* Adds horizontal space between buttons */
+  margin-top: 1rem;
+}
 .submit-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
   background: var(--color-primary);
-  color: white;
+  color: var(--color-myapp-white);
   border: none;
   border-radius: 0.5rem;
   font-weight: 500;
@@ -126,8 +146,11 @@ watch(() => route.params.id, loadPost)
 }
 
 .submit-button:hover:not(:disabled) {
-  background: var(--color-primary);
+  background: var(--color-primary-dark);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.delete-button:hover:not(:disabled) {
+  background: var(--color-red);
+}
 </style>

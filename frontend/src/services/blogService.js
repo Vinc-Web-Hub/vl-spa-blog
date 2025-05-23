@@ -82,3 +82,17 @@ export const fetchPostsByDomain = async (domain) => {
     return [];
   }
 };
+
+// Delete a blog post by its ID
+
+export const deletePost = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    throw new Error('Failed to delete post');
+  }
+};
+
+

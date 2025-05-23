@@ -67,4 +67,16 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// DELETE /api/posts/:id - Delete a post
+router.delete('/:id', async (req, res) => {
+  try {
+    const deleted = await Post.findByIdAndDelete(req.params.id)
+    if (!deleted) return res.status(404).json({ error: 'Post not found' })
+    res.json({ message: 'Post deleted successfully' })
+  } catch (err) {
+    console.error('Error deleting post:', err)
+    res.status(500).json({ error: 'Failed to delete post' })
+  }
+});
+
 export default router;

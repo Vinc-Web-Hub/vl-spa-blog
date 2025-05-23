@@ -36,7 +36,7 @@ const props = defineProps({
 
 <style scoped>
 .image-card {
-  background-color: white;
+  background-color: var(--color-myapp-white);
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   overflow: hidden;

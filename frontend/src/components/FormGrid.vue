@@ -255,7 +255,7 @@ async function onSubmit() {
   width: 100%;
   margin: 6rem auto 0 auto;
   padding: 2rem;
-  background: white;
+  background: var(--color-myapp-white);
   border-radius: 1rem;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -297,7 +297,7 @@ textarea {
   border: 1px solid var(--color-header-light);
   border-radius: 0.5rem;
   font-size: 0.95rem;
-  background: white;
+  background: var(--color-myapp-white);
   transition: all 0.2s ease;
   color: var(--color-text-dark);
 }
@@ -313,7 +313,7 @@ textarea:focus {
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background-color: white;
+  background-color: var(--color-myapp-white);
   color: var(--color-header-light);
   cursor: not-allowed;
 }
@@ -359,7 +359,7 @@ textarea {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
   background: var(--color-primary);
-  color: white;
+  color: var(--color-myapp-white);
   border: none;
   border-radius: 0.5rem;
   font-weight: 500;

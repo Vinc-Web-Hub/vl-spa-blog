@@ -5,6 +5,7 @@ html, body {
 }
 
 :root {
+  --color-myapp-white: white;
   --color-primary: #3b82f6;
   --color-primary-dark: #2563eb;
   --color-header-light: #f3f4f6;
@@ -14,5 +15,6 @@ html, body {
   --color-text-grey: #6b7280;
   --color-text-light: #fff;
   --color-green: #16a34a;
+  --color-red: #e74c3c;
   /* Add more as needed */
 }
