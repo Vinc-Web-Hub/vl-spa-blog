@@ -305,7 +305,7 @@ textarea {
 input:not([type="checkbox"]):focus,
 select:focus,
 textarea:focus {
-  border-color: #3b82f6;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   outline: none;
 }
@@ -358,7 +358,7 @@ textarea {
 .submit-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: #3b82f6;
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -370,7 +370,7 @@ textarea {
 }
 
 .submit-button:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--color-primary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -381,7 +381,7 @@ textarea {
 
 .error {
   font-size: 0.875rem;
-  color: #dc2626;
+  color: var(--color-test-error);
   margin-top: 0.25rem;
   padding: 0.5rem;
   background-color: #fef2f2;
@@ -391,7 +391,7 @@ textarea {
 
 .section-header {
   grid-column: 1 / -1;
-  background: #f9fafb;
+  background: var(--color-header-light);
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;

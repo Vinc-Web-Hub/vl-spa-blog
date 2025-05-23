@@ -102,7 +102,7 @@ watch(() => route.params.id, loadPost)
 }
 
 .blogpost-back-link {
-  color: #2563eb;
+  color: var(--color-primary);
   text-decoration: none;
   font-size: 0.95rem;
 }
@@ -114,7 +114,7 @@ watch(() => route.params.id, loadPost)
 .submit-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: #3b82f6;
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -126,7 +126,7 @@ watch(() => route.params.id, loadPost)
 }
 
 .submit-button:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--color-primary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

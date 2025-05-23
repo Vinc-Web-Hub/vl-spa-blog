@@ -58,7 +58,7 @@ const formattedDate = computed(() => {
 }
 
 .card-header {
-  background-color: #f3f4f6;
+  background-color: var(--color-header-light);
   padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -68,12 +68,12 @@ const formattedDate = computed(() => {
 .card-title {
   font-weight: 600;
   font-size: 1.125rem;
-  color: #2563eb;
+  color: var(--color-primary);
 }
 
 .card-date {
   font-size: 0.875rem;
-  color: #4b5563;
+  color: var(--color-light-text);
 }
 
 .card-content {

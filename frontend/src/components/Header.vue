@@ -139,11 +139,11 @@ body {
 
 .nav-link:hover {
   background-color: #f5f5f5;
-  color: #007bff;
+  color: var(--color-primary);
 }
 
 .router-link-active {
-  color: #007bff;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
@@ -194,12 +194,12 @@ body {
 
 .mobile-link:hover {
   background-color: #f5f5f5;
-  border-left-color: #007bff;
+  border-left-color: var(--color-primary);
 }
 
 .mobile-link.router-link-active {
-  color: #007bff;
-  border-left-color: #007bff;
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
   background-color: #f0f7ff;
 }
 

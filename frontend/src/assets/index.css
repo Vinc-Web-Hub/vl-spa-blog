@@ -3,3 +3,14 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-button-text: #fff;
+  --color-header-light: #f3f4f6;
+  --color-header-ultralight: #f9fafb;
+  --color-text-error: #dc2626;
+
+  /* Add more as needed */
+}

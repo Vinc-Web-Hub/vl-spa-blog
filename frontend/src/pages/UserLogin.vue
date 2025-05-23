@@ -34,7 +34,7 @@ const login = async ({ username, password }) => {
 
 <style scoped>
 .error {
-  color: #dc2626;
+  color: var(--color-text-error);
   text-align: center;
   margin-top: 1rem;
   font-weight: 500;

@@ -166,7 +166,7 @@ textarea:focus {
 button[type='submit'] {
   margin-top: 0.5rem;
   padding: 0.6rem 0;
-  background: #2563eb;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 0.5rem;
@@ -177,12 +177,12 @@ button[type='submit'] {
 }
 
 button[type='submit']:hover {
-  background: #1e40af;
+  background: var(--color-primary-dark);
 }
 
 .error {
   font-size: 0.95rem;
-  color: #dc2626;
+  color: var(--color-text-error);
   margin-top: 0.25rem;
 }
 </style>
