@@ -71,6 +71,9 @@
             :step="field.step"
             :placeholder="field.placeholder"
             :disabled="field.disabled"
+            :class="{ 'error-input': fieldErrors[key] }"
+            @blur="validateNumberField(key, field)"
+            @input="clearFieldError(key)"
           />
 
           <input
@@ -103,6 +106,10 @@
           <div v-if="field.help" class="help-text">
             {{ field.help }}
           </div>
+
+          <div v-if="fieldErrors[key]" class="error-message">
+            {{ fieldErrors[key] }}
+          </div>
         </template>
       </div>
 
@@ -128,6 +135,7 @@ const props = defineProps({
 
 const emit = defineEmits(['submit'])
 const formData = reactive({})
+const fieldErrors = reactive({})
 
 // Title
 const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Grid Form')
@@ -245,8 +253,64 @@ function formatLabel(key) {
     .trim()
 }
 
+function validateNumberField(fieldKey, field) {
+  const value = formData[fieldKey]
+  
+  // Clear any existing error
+  delete fieldErrors[fieldKey]
+  
+  // Skip validation if field is empty and not required
+  if ((value === null || value === undefined || value === '') && !field.required) {
+    return true
+  }
+  
+  // Check if value exists for required fields
+  if (field.required && (value === null || value === undefined || value === '')) {
+    fieldErrors[fieldKey] = 'This field is required'
+    return false
+  }
+  
+  // Validate min value
+  if (field.min !== undefined && value < field.min) {
+    fieldErrors[fieldKey] = `Value must be at least ${field.min}`
+    return false
+  }
+  
+  // Validate max value
+  if (field.max !== undefined && value > field.max) {
+    fieldErrors[fieldKey] = `Value must be no more than ${field.max}`
+    return false
+  }
+  
+  return true
+}
+
+function clearFieldError(fieldKey) {
+  if (fieldErrors[fieldKey]) {
+    delete fieldErrors[fieldKey]
+  }
+}
+
+function validateAllFields() {
+  let isValid = true
+  
+  for (const [key, field] of Object.entries(visibleFields.value)) {
+    if (field.type === 'number') {
+      const fieldValid = validateNumberField(key, field)
+      if (!fieldValid) isValid = false
+    }
+  }
+  
+  return isValid
+}
+
 async function onSubmit() {
   if (isSubmitting.value) return
+  
+  // Validate all fields before submission
+  if (!validateAllFields()) {
+    return
+  }
   
   isSubmitting.value = true
   try {
@@ -308,6 +372,13 @@ textarea {
   background: var(--color-myapp-white);
   transition: all 0.2s ease;
   color: var(--color-text-dark);
+}
+
+input:not([type="checkbox"]).error-input,
+select.error-input,
+textarea.error-input {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
 }
 
 input:not([type="checkbox"]):focus,
@@ -395,6 +466,13 @@ textarea {
   background-color: var(--color-header-light);
   border-radius: 0.375rem;
   border: 1px solid #fecaca;
+}
+
+.error-message {
+  font-size: 0.875rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  font-weight: 500;
 }
 
 .section-header {
