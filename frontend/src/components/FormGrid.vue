@@ -58,6 +58,20 @@
             v-model="formData[key]"
             :required="field.required"
             :disabled="field.disabled"
+            :min="field.min"
+            :max="field.max"
+          />
+
+          <input
+            v-else-if="field.type === 'time'"
+            :id="getFieldId(key)"
+            type="time"
+            v-model="formData[key]"
+            :required="field.required"
+            :disabled="field.disabled"
+            :min="field.min"
+            :max="field.max"
+            :step="field.step"
           />
 
           <input
@@ -209,12 +223,35 @@ function getDefaultValue(field) {
     case 'checkbox':
       return false
     case 'date':
+      if (field.useCurrentDate) {
+        return getCurrentDate()
+      }
+      return ''
+    case 'time':
+      if (field.useCurrentTime) {
+        return getCurrentTime()
+      }
       return ''
     case 'enum':
       return ''
     default:
       return null
   }
+}
+
+function getCurrentDate() {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+function getCurrentTime() {
+  const now = new Date()
+  const hours = String(now.getHours()).padStart(2, '0')
+  const minutes = String(now.getMinutes()).padStart(2, '0')
+  return `${hours}:${minutes}`
 }
 
 function shouldShowField(fieldKey) {
