@@ -1,5 +1,5 @@
 <template>
-  <div class="form-container">
+  <div class="form-container" :style="containerStyle">
     <h2>{{ formTitle }}</h2>
     <form @submit.prevent="onSubmit" class="grid-form" :style="gridTemplate">
       <div
@@ -132,6 +132,14 @@ const formData = reactive({})
 // Title
 const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Grid Form')
 
+// Container style with dynamic max-width
+const containerStyle = computed(() => {
+  const maxWidth = props.schema.__meta__?.maxWidth || '800px'
+  return {
+    maxWidth: maxWidth
+  }
+})
+
 // Fields without __meta__
 const visibleFields = computed(() => {
   const { __meta__, ...fields } = props.schema
@@ -251,7 +259,7 @@ async function onSubmit() {
 
 <style scoped>
 .form-container {
-  max-width: 800px;
+  max-width: 800px; /* Default fallback - will be overridden by inline style */
   width: 100%;
   margin: 6rem auto 0 auto;
   padding: 2rem;
