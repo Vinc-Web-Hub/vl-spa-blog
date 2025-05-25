@@ -41,6 +41,7 @@ export default {
     required: true,
     row: 3,
     col: 1,
+    default: '2025-05-27', // Custom default date
     label: 'Registration Deadline',
     help: 'Last date to register'
   },

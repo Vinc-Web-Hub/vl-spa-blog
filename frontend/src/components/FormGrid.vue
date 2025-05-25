@@ -211,6 +211,7 @@ watchEffect(() => {
 })
 
 function getDefaultValue(field) {
+  // Check for explicit default value first
   if (field.default !== undefined) return field.default
   
   switch (field.type) {
@@ -223,11 +224,13 @@ function getDefaultValue(field) {
     case 'checkbox':
       return false
     case 'date':
+      // Only use current date if no explicit default and useCurrentDate is true
       if (field.useCurrentDate) {
         return getCurrentDate()
       }
       return ''
     case 'time':
+      // Only use current time if no explicit default and useCurrentTime is true
       if (field.useCurrentTime) {
         return getCurrentTime()
       }
