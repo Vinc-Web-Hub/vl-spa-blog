@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const API_URL_USERS = import.meta.env.VITE_API_URL_USERS;
 console.log('API_URL:', API_URL);
 
 /**
@@ -95,4 +96,20 @@ export const deletePost = async (id) => {
   }
 };
 
-
+/**
+ * Log in a user by sending credentials to the backend.
+ * @param {Object} credentials - An object containing username and password.
+ * @returns {Promise<Object>} The login response including token and role.
+ */
+export const loginUser = async ({ username, password }) => {
+  try {
+    const response = await axios.post('API_URL_USERS', {
+      username,
+      password
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Login failed:', error);
+    throw new Error(error.response?.data?.error || 'Login failed');
+  }
+};
