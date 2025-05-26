@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL;
 const API_URL_USERS = import.meta.env.VITE_API_URL_USERS;
 const API_URL_PERSONS = import.meta.env.VITE_API_URL_PERSONS;
+const API_URL_VS = import.meta.env.VITE_API_URL_VS;
 console.log('API_URL:', API_URL);
 
 /**
@@ -116,7 +117,7 @@ export const loginUser = async ({ username, password }) => {
 };
 
 /**
- * Create a new blog person by sending a POST request to the backend.
+ * Create a new person by sending a POST request to the backend.
  * @param {Object} postData - The data of the new post to be created.
  * @returns {Promise<Object|null>} The created post object or null if an error occurred.
  */
@@ -126,6 +127,19 @@ export const createPerson = async (postData) => {
     return response.data;
   } catch (error) {
     console.error('Error creating person:', error);
+    return null;
+  }
+};
+
+/**
+ * Create a new VitalSigns record by sending a POST request to the backend.
+*/
+export const createVitalSigns = async (postData) => {
+  try {
+    const response = await axios.post(API_URL_VS, postData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating a Vital Sign record:', error);
     return null;
   }
 };

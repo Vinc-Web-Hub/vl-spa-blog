@@ -10,6 +10,7 @@ import ModifyPost from '../pages/ModifyPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
 import CreatePerson from '../pages/CreatePerson.vue'
+import AddVitalSigns from '../pages/AddVitalSigns.vue'
 import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
 import TestFormGridEvents from '../pages/TestFormGridEvents.vue'
@@ -25,6 +26,7 @@ const routes = [
   { path: '/add-post', name: 'AddPost', component: AddPost },
   { path: '/modify-post/:id', name: 'ModifyPost', component: ModifyPost, props: true },
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
+  { path: '/add-vs', name: 'AddVitalSigns', component: AddVitalSigns },
   { path: '/login', name: 'Login', component: UserLogin },
   { path: '/create-person', name: 'CreatePerson', component: CreatePerson }, 
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },

@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 const router = express.Router();// POST /api/person - Create a new person
 router.post('/', async (req, res) => {
   try {
-    console.log('Created person:', req.body);  // Add this!
+    console.log('Created person...:', req.body);  // Add this!
     const { id, name, firstname, birthdate, sex, registrationDate } = req.body;
     const newPerson = new Person({ id, name, firstname, birthdate, sex, registrationDate });
     const savedPerson = await newPerson.save();

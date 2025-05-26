@@ -4,6 +4,7 @@ import cors from 'cors';
 import postsRouter from './routes/postsRoutes.js';
 import usersRouter from './routes/usersRoutes.js';
 import personsRouter from './routes/personsRoutes.js';
+import VSRouter from './routes/vitalSignsRoutes.js';
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -25,7 +26,8 @@ app.use('/api/posts', postsRouter);
 app.use('/api/users', usersRouter);
 // Use the persons router : l'URL de l'API est /api/persons.
 app.use('/api/persons', personsRouter);
-
+// Use the vital-signs router : l'URL de l'API est //api/vital-signs.
+app.use('/api/vital-signs', VSRouter);
 // Start the server
 // const PORT = 3001;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
