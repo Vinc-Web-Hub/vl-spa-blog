@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const API_URL_USERS = import.meta.env.VITE_API_URL_USERS;
+const API_URL_PERSONS = import.meta.env.VITE_API_URL_PERSONS;
 console.log('API_URL:', API_URL);
 
 /**
@@ -39,18 +40,17 @@ export const fetchPostById = async (id) => {
 export const getPostById = fetchPostById;
 
 /**
- * Update an existing blog post by its ID.
- * @param {string} id - The ID of the post to update.
- * @param {Object} updatedData - The updated post data.
- * @returns {Promise<Object|null>} The updated post or null if error occurred.
+ * Fetch blog posts by domain/category.
+ * @param {string} domain - The domain/category to filter posts by.
+ * @returns {Promise<Array>} An array of blog post objects belonging to the specified domain.
  */
-export const updatePost = async (id, updatedData) => {
+export const fetchPostsByDomain = async (domain) => {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, updatedData);
+    const response = await axios.get(`${API_URL}?domain=${encodeURIComponent(domain)}`);
     return response.data;
   } catch (error) {
-    console.error(`Error updating post with ID ${id}:`, error);
-    return null;
+    console.error('Error fetching posts by domain:', error);
+    return [];
   }
 };
 
@@ -70,17 +70,18 @@ export const createPost = async (postData) => {
 };
 
 /**
- * Fetch blog posts by domain/category.
- * @param {string} domain - The domain/category to filter posts by.
- * @returns {Promise<Array>} An array of blog post objects belonging to the specified domain.
+ * Update an existing blog post by its ID.
+ * @param {string} id - The ID of the post to update.
+ * @param {Object} updatedData - The updated post data.
+ * @returns {Promise<Object|null>} The updated post or null if error occurred.
  */
-export const fetchPostsByDomain = async (domain) => {
+export const updatePost = async (id, updatedData) => {
   try {
-    const response = await axios.get(`${API_URL}?domain=${encodeURIComponent(domain)}`);
+    const response = await axios.put(`${API_URL}/${id}`, updatedData);
     return response.data;
   } catch (error) {
-    console.error('Error fetching posts by domain:', error);
-    return [];
+    console.error(`Error updating post with ID ${id}:`, error);
+    return null;
   }
 };
 
@@ -111,5 +112,20 @@ export const loginUser = async ({ username, password }) => {
   } catch (error) {
     console.error('Login failed:', error);
     throw new Error(error.response?.data?.error || 'Login failed');
+  }
+};
+
+/**
+ * Create a new blog person by sending a POST request to the backend.
+ * @param {Object} postData - The data of the new post to be created.
+ * @returns {Promise<Object|null>} The created post object or null if an error occurred.
+ */
+export const createPerson = async (postData) => {
+  try {
+    const response = await axios.post(API_URL_PERSONS, postData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating person:', error);
+    return null;
   }
 };

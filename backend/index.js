@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import postsRouter from './routes/postsRoutes.js';
 import usersRouter from './routes/usersRoutes.js';
+import personsRouter from './routes/personsRoutes.js';
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -22,6 +23,8 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/posts', postsRouter);
 // Use the users router : l'URL de l'API est /api/users.
 app.use('/api/users', usersRouter);
+// Use the persons router : l'URL de l'API est /api/persons.
+app.use('/api/persons', personsRouter);
 
 // Start the server
 // const PORT = 3001;

@@ -1,25 +1,25 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { createPost } from '../services/blogService';
+import { createPerson } from '../services/blogService.js';
 import Form from '../components/Form.vue';
-import formSchemaPost from '../models/formSchemaPerson.js';
+import formSchemaPerson from '../models/formSchemaPerson.js';
 
 const router = useRouter();
 
 const handleSubmit = async (formData) => {
   try {
-    await createPost(formData);
-    router.push('/blog-list');
+    await createPerson(formData);
+    router.push('/');
   } catch (err) {
-    console.error('Failed to save post:', err);
-    console.log('Error saving post. Please try again.');
+    console.error('Failed to create a person:', err);
+    console.log('Error creating a person. Please try again.');
   }
 };
 </script>
 
 <template>
   <div class="form-outer">
-      <Form :schema="formSchemaPost" @submit="handleSubmit" />
+      <Form :schema="formSchemaPerson" @submit="handleSubmit" />
   </div>
 </template>
 
