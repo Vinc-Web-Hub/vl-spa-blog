@@ -4,7 +4,7 @@ import schema from '../models/formGridDateTimePickers.js'
 
 function handleSubmit(data) {
   console.log('Submitted Data:', data)
-  alert('Form submitted! Check the console.')
+  console.log('Form submitted! Check the console.')
 }
 </script>
 

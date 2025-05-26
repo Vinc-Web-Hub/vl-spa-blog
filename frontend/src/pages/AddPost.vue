@@ -12,7 +12,7 @@ const handleSubmit = async (formData) => {
     router.push('/blog-list');
   } catch (err) {
     console.error('Failed to save post:', err);
-    alert('Error saving post. Please try again.');
+    console.log('Error saving post. Please try again.');
   }
 };
 </script>

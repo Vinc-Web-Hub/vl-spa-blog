@@ -19,7 +19,7 @@ onMounted(async () => {
     initialData.value = post;
   } catch (err) {
     console.error('Failed to load post:', err);
-    alert('Error loading post. Please try again.');
+    console.log('Error loading post. Please try again.');
   } finally {
     loading.value = false;
   }
@@ -31,7 +31,7 @@ const handleSubmit = async (formData) => {
     router.push('/blog-list');
   } catch (err) {
     console.error('Failed to update post:', err);
-    alert('Error updating post. Please try again.');
+    console.log('Error updating post. Please try again.');
   }
 };
 </script>

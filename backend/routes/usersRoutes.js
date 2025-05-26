@@ -9,6 +9,7 @@ const router = express.Router();
 // Create User Route
 router.post('/', async (req, res) => {
   try {
+    console.log('User creation attempt with body: ' + JSON.stringify(req.body)); // Debugging line
     const { username, password, role } = req.body;
     if (!username || !password || !role) {
       return res.status(400).json({ error: 'All fields are required' });
@@ -37,6 +38,7 @@ router.post('/', async (req, res) => {
 // Login Route
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  console.log('Login attempt with username: ' + username); // Debugging line
   try {
     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ error: 'Invalid username or password' });

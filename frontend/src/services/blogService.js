@@ -103,7 +103,7 @@ export const deletePost = async (id) => {
  */
 export const loginUser = async ({ username, password }) => {
   try {
-    const response = await axios.post('API_URL_USERS', {
+    const response = await axios.post(`${API_URL_USERS}/login`, {
       username,
       password
     });

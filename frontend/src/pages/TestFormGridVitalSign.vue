@@ -4,7 +4,7 @@ import schema from '../models/formGridVitalSigns.js'
 
 function handleSubmit(data) {
   console.log('Submitted Data:', data)
-  alert('Form submitted! Check the console.')
+  console.log('Form submitted! Check the console.')
 }
 </script>
 

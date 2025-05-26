@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
-import { loginUser } from '../services/blogService'
 import Form from '../components/Form.vue'
 import formSchemaLogin from '../models/formSchemaLogin.js'
 
@@ -11,18 +11,21 @@ const router = useRouter()
 
 const login = async ({ username, password }) => {
   try {
-    console.log('Logging in...') // Optional: Alert for debugging
-    const { token, role } = await loginUser({ username, password })
+    const response = await axios.post('http://localhost:3001/api/users/login', {
+      username,
+      password
+    })
+
+    const { token, role } = response.data
     localStorage.setItem('token', token)
     localStorage.setItem('userRole', role)
     errorMessage.value = ''
     router.push('/')
   } catch (err) {
-    errorMessage.value = err.message
+    errorMessage.value = err.response?.data?.error || 'Login failed'
   }
 }
 </script>
-
 
 <template>
   <Form :schema="loginSchema" @submit="login" />

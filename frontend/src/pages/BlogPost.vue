@@ -36,7 +36,7 @@ const handleDelete = async () => {
       router.push('/blog-list')
     } catch (err) {
       console.error('Delete failed:', err)
-      alert('Failed to delete post.')
+      console.log('Failed to delete post.')
     }
   }
 }
