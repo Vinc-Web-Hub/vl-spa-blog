@@ -2,13 +2,16 @@
   <div class="generic-list">
     <h2>{{ title }}</h2>
 
-    <input
-      @input="onSearchInput"
-      type="text"
-      :value="searchRaw"
-      :placeholder="`Search ${searchFields.join(' or ')}`"
-      class="search-input"
-    />
+    <div class="search-controls">
+      <input
+        @input="onSearchInput"
+        type="text"
+        :value="searchRaw"
+        :placeholder="`Search ${searchFields.join(' or ')}`"
+        class="search-input"
+      />
+      <button @click="resetSearch" class="reset-button">Reset</button>
+    </div>
 
     <div class="page-size-selector">
       <label>Rows per page:</label>
@@ -92,7 +95,14 @@ const perPage = ref(props.pageSizeOptions[0] || 10);
 
 const onSearchInput = debounce((e) => {
   searchQuery.value = e.target.value;
+  searchRaw.value = e.target.value;
 }, 300);
+
+function resetSearch() {
+  searchRaw.value = '';
+  searchQuery.value = '';
+  currentPage.value = 1;
+}
 
 watch([searchQuery, perPage], () => {
   currentPage.value = 1;
@@ -146,13 +156,33 @@ function format(value, type) {
   padding: 1rem;
 }
 
-.search-input {
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.search-input {
   padding: 0.5rem;
   width: 100%;
   max-width: 300px;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
+}
+
+.reset-button {
+  padding: 0.5rem 0.75rem;
+  background: #9ca3af;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.reset-button:hover {
+  background-color: #6b7280;
 }
 
 .page-size-selector {
