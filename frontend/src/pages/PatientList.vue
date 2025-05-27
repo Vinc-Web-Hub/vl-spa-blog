@@ -18,7 +18,7 @@ const columns = [
   },
   { key: 'firstname', label: 'Firstname' },
   { key: 'sex', label: 'Sex' },
-  { key: 'birthdate', label: 'DOB', type: 'date' }
+  { key: 'birthDate', label: 'DOB', type: 'date' }
 ]
 </script>
 

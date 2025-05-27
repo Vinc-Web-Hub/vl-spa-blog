@@ -146,9 +146,14 @@ const paginatedItems = computed(() => {
 });
 
 function format(value, type) {
-  if (type === 'date') return new Date(value).toLocaleDateString();
-  return value;
+  if (type === 'date') {
+    console.log('Formatting date:', value); // Debug log
+    const date = new Date(value);
+    return isNaN(date.getTime()) ? 'Invalid date' : date.toLocaleDateString();
+  }
+  return value ?? '';
 }
+
 </script>
 
 <style scoped>
