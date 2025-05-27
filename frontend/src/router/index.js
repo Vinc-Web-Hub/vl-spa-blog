@@ -10,6 +10,7 @@ import ModifyPost from '../pages/ModifyPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
 import CreatePerson from '../pages/CreatePerson.vue'
+import PatientList from '../pages/PatientList.vue'
 import AddVitalSigns from '../pages/AddVitalSigns.vue'
 import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
@@ -29,6 +30,7 @@ const routes = [
   { path: '/add-vs', name: 'AddVitalSigns', component: AddVitalSigns },
   { path: '/login', name: 'Login', component: UserLogin },
   { path: '/create-person', name: 'CreatePerson', component: CreatePerson }, 
+  { path: '/item-list', name: 'PatientList', component: PatientList }, 
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
   { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan },
   { path: '/form-events', name: 'FormEvents', component: TestFormGridEvents },
