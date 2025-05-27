@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { fetchPostById, deletePost } from '../services/blogService'
+import { fetchPostById, deletePost } from '../services/frontEndService'
 
 const route = useRoute()
 const router = useRouter()

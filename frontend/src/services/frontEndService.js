@@ -123,6 +123,7 @@ export const loginUser = async ({ username, password }) => {
  */
 export const createPerson = async (postData) => {
   try {
+    console.log('frontEndService - Creating person with data:', postData); // Debugging line
     const response = await axios.post(API_URL_PERSONS, postData);
     return response.data;
   } catch (error) {
@@ -141,5 +142,17 @@ export const createVitalSigns = async (postData) => {
   } catch (error) {
     console.error('Error creating a Vital Sign record:', error);
     return null;
+  }
+};
+
+// Fetch all patients from the backend
+
+export const fetchAllPatients = async () => {
+  try {
+    const response = await axios.get(API_URL_PERSONS);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    return [];
   }
 };

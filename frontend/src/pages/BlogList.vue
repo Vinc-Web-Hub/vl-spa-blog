@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { fetchAllPosts } from '../services/blogService'
+import { fetchAllPosts } from '../services/frontEndService'
 import BlogCard from '../components/BlogCard.vue'
 
 const router = useRouter()

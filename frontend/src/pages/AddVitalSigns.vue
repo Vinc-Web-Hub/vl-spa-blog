@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { createVitalSigns } from '../services/blogService.js';
+import { createVitalSigns } from '../services/frontEndService.js';
 import FormGrid from '../components/FormGrid.vue'
 import formSchemaVS from '../models/formGridVitalSigns.js'
 

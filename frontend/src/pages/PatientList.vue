@@ -1,35 +1,20 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import GenericList from '../components/GenericList.vue'
+import { fetchAllPatients } from '../services/frontEndService.js'
 
-const patients = [
-  {
-    _id: '1',
-    name: 'Doe',
-    firstname: 'Jane',
-    sex: 'Female',
-    birthdate: '1990-05-01'
-  },
-  {
-    _id: '2',
-    name: 'Smith',
-    firstname: 'John',
-    sex: 'Male',
-    birthdate: '1985-11-20'
-  },
-  {
-    _id: '3',
-    name: 'Martin',
-    firstname: 'Alice',
-    sex: 'Female',
-    birthdate: '1978-02-15'
-  }
-]
+const patients = ref([])
+
+onMounted(async () => {
+  patients.value = await fetchAllPatients()
+  console.log('Patients fetched:', patients.value) // Optional: Alert for debugging
+})
 
 const columns = [
   {
     key: 'name',
     label: 'Name',
-    link: (patient) => `/patients/${patient._id}`
+    link: (p) => `/patients/${p._id}`
   },
   { key: 'firstname', label: 'Firstname' },
   { key: 'sex', label: 'Sex' },
@@ -43,6 +28,6 @@ const columns = [
     :items="patients"
     :columns="columns"
     :searchFields="['name', 'firstname']"
-    :pageSizeOptions="[5, 10, 20]"
+    :pageSizeOptions="[10, 20, 50]"
   />
 </template>

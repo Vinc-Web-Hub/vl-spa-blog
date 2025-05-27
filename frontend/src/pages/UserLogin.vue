@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { loginUser } from '../services/blogService'
+import { loginUser } from '../services/frontEndService.js'
 import Form from '../components/Form.vue'
 import formSchemaLogin from '../models/formSchemaLogin.js'
 

@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { createPerson } from '../services/blogService.js';
+import { createPerson } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
 import formSchemaPerson from '../models/formSchemaPerson.js';
 
@@ -8,6 +8,7 @@ const router = useRouter();
 
 const handleSubmit = async (formData) => {
   try {
+    console.log('Creating a person with data:', formData); // Optional: Alert for debugging
     await createPerson(formData);
     router.push('/');
   } catch (err) {

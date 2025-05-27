@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { createPost } from '../services/blogService';
+import { createPost } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
 import formSchemaPost from '../models/formSchemaPost.js';
 

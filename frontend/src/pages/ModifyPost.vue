@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getPostById, updatePost } from '../services/blogService';
+import { getPostById, updatePost } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
 import formSchemaPost from '../models/formSchemaPost.js';
 
