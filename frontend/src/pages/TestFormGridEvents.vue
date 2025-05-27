@@ -1,6 +1,6 @@
 <script setup>
 import FormGrid from '../components/FormGrid.vue'
-import schema from '../models/formGridDateTimePickers.js'
+import schema from '../schemas/formGridDateTimePickers.js'
 
 function handleSubmit(data) {
   console.log('Submitted Data:', data)

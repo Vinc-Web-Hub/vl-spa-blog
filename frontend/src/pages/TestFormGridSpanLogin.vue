@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import FormGrid from '../components/FormGrid.vue'
-import formSchemaLogin from '../models/formGridSpanSchemaLogin.js'
+import formSchemaLogin from '../schemas/formGridSpanSchemaLogin.js'
 
 const loginSchema = formSchemaLogin
 const errorMessage = ref('')

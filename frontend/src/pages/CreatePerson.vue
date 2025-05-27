@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { createPerson } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
-import formSchemaPerson from '../models/formSchemaPerson.js';
+import formSchemaPerson from '../schemas/formSchemaPerson.js';
 
 const router = useRouter();
 

@@ -1,9 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import postsRouter from './routes/postsRoutes.js';
-import usersRouter from './routes/usersRoutes.js';
-import personsRouter from './routes/personsRoutes.js';
+import postsRouter from './routes/postRoutes.js';
+import usersRouter from './routes/userRoutes.js';
+import personsRouter from './routes/personRoutes.js';
 import VSRouter from './routes/vitalSignsRoutes.js';
 import dotenv from 'dotenv'
 

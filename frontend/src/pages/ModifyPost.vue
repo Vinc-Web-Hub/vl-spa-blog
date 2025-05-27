@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getPostById, updatePost } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
-import formSchemaPost from '../models/formSchemaPost.js';
+import formSchemaPost from '../schemas/formSchemaPost.js';
 
 const route = useRoute();
 const router = useRouter();

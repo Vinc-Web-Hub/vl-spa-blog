@@ -1,5 +1,5 @@
 import express from 'express';
-import VitalSigns from '../models/VitalSigns.js';
+import VitalSigns from '../models/vitalSigns.js';
 import mongoose from 'mongoose'
 
 const router = express.Router();// POST /api/vital-signs - Create a new Vital Sign
