@@ -2,24 +2,26 @@
   <div class="generic-list">
     <h2>{{ title }}</h2>
 
-    <div class="search-controls">
-      <input
-        @input="onSearchInput"
-        type="text"
-        :value="searchRaw"
-        :placeholder="`Search ${searchFields.join(' or ')}`"
-        class="search-input"
-      />
-      <button @click="resetSearch" class="reset-button">Reset</button>
-    </div>
+    <div class="header-controls">
+      <div class="search-controls">
+        <input
+          @input="onSearchInput"
+          type="text"
+          :value="searchRaw"
+          :placeholder="`Search ${searchFields.join(' or ')}`"
+          class="search-input"
+        />
+        <button @click="resetSearch" class="reset-button">Reset</button>
+      </div>
 
-    <div class="page-size-selector">
-      <label>Rows per page:</label>
-      <select v-model.number="perPage">
-        <option v-for="option in pageSizeOptions" :key="option" :value="option">
-          {{ option }}
-        </option>
-      </select>
+      <div class="page-size-selector">
+        <label>Rows per page:</label>
+        <select v-model.number="perPage">
+          <option v-for="option in pageSizeOptions" :key="option" :value="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
     </div>
 
     <table class="data-table" v-if="paginatedItems.length">
@@ -30,7 +32,11 @@
             :key="col.key"
             @click="sortBy(col.key)"
           >
-            {{ col.label }} <span v-if="sortKey === col.key">{{ sortAsc ? '▲' : '▼' }}</span>
+            {{ col.label }}
+            <span>
+              <span v-if="sortKey === col.key">{{ sortAsc ? '▲' : '▼' }}</span>
+              <span v-else>⇅</span>
+            </span>
           </th>
         </tr>
       </thead>
@@ -147,13 +153,11 @@ const paginatedItems = computed(() => {
 
 function format(value, type) {
   if (type === 'date') {
-    console.log('Formatting date:', value); // Debug log
     const date = new Date(value);
-    return isNaN(date.getTime()) ? 'Invalid date' : date.toLocaleDateString();
+    return isNaN(date.getTime()) ? '' : date.toLocaleDateString();
   }
   return value ?? '';
 }
-
 </script>
 
 <style scoped>
@@ -161,11 +165,27 @@ function format(value, type) {
   padding: 1rem;
 }
 
+h2 {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .search-controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  flex: 1;
 }
 
 .search-input {
@@ -191,10 +211,10 @@ function format(value, type) {
 }
 
 .page-size-selector {
-  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto;
 }
 
 .data-table {
