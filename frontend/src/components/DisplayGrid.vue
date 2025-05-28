@@ -18,6 +18,9 @@
 <script setup>
 import { computed } from 'vue'
 
+console.log('DisplayGrid component loaded')
+// import { defineProps } from 'vue'
+
 const props = defineProps({
   schema: Object,
   document: Object

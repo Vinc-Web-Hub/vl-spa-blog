@@ -16,6 +16,7 @@ import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
 import TestFormGridEvents from '../pages/TestFormGridEvents.vue'
 import TestFormGridVitalSign from '../pages/TestFormGridVitalSign.vue'
+import TestDisplayGrid from '../pages/TestDisplayGrid.vue'
 
 const routes = [
   { path: '/', name: 'Main', component: Main },
@@ -34,7 +35,8 @@ const routes = [
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
   { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan },
   { path: '/form-events', name: 'FormEvents', component: TestFormGridEvents },
-  { path: '/form-vital-sign', name: 'FormVitalSign', component: TestFormGridVitalSign } 
+  { path: '/form-vital-sign', name: 'FormVitalSign', component: TestFormGridVitalSign },
+  { path: '/disp-grid', name: 'DisplayGrid', component: TestDisplayGrid }
 ]
 
 const router = createRouter({
