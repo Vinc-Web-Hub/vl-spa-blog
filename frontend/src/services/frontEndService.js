@@ -1,18 +1,21 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL;
-const API_URL_USERS = import.meta.env.VITE_API_URL_USERS;
-const API_URL_PERSONS = import.meta.env.VITE_API_URL_PERSONS;
-const API_URL_VS = import.meta.env.VITE_API_URL_VS;
-console.log('API_URL:', API_URL);
+const BASE_URL = import.meta.env.VITE_API_URL;
+const API_URL_POSTS = `${BASE_URL}/api/posts`;
+const API_URL_USERS = `${BASE_URL}/api/users`;
+const API_URL_PERSONS = `${BASE_URL}/api/persons`;
+const API_URL_VS = `${BASE_URL}/api/vital-signs`;
 
+
+console.log('BASE_URL:', BASE_URL);
+console.log('API_URL_POSTS:', API_URL_POSTS);
 /**
  * Fetch all blog posts from the backend.
  * @returns {Promise<Array>} An array of blog post objects.
  */
 export const fetchAllPosts = async () => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_URL_POSTS);
     return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);
@@ -27,7 +30,7 @@ export const fetchAllPosts = async () => {
  */
 export const fetchPostById = async (id) => {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await axios.get(`${API_URL_POSTS}/${id}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching post with ID ${id}:`, error);
@@ -47,7 +50,7 @@ export const getPostById = fetchPostById;
  */
 export const fetchPostsByDomain = async (domain) => {
   try {
-    const response = await axios.get(`${API_URL}?domain=${encodeURIComponent(domain)}`);
+    const response = await axios.get(`${API_URL_POSTS}?domain=${encodeURIComponent(domain)}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching posts by domain:', error);
@@ -62,7 +65,7 @@ export const fetchPostsByDomain = async (domain) => {
  */
 export const createPost = async (postData) => {
   try {
-    const response = await axios.post(API_URL, postData);
+    const response = await axios.post(API_URL_POSTS, postData);
     return response.data;
   } catch (error) {
     console.error('Error creating post:', error);
@@ -78,7 +81,7 @@ export const createPost = async (postData) => {
  */
 export const updatePost = async (id, updatedData) => {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, updatedData);
+    const response = await axios.put(`${API_URL_POSTS}/${id}`, updatedData);
     return response.data;
   } catch (error) {
     console.error(`Error updating post with ID ${id}:`, error);
@@ -90,7 +93,7 @@ export const updatePost = async (id, updatedData) => {
 
 export const deletePost = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await axios.delete(`${API_URL_POSTS}/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting post:', error);
