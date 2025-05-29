@@ -39,7 +39,7 @@ limitation de la largeur d'un formulaire
     maxWidth: '600px', // Add max-width configuration
   },
 
-controle des valeurs minn max et incrément d'un champ numerique
+controle des valeurs min max et incrément d'un champ numerique
 
  salary: {
     type: 'number',
