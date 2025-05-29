@@ -35,6 +35,7 @@ export default {
     type: 'date',
     label: 'Registration Date',
     required: true,
+    visible: false,
     row: 3,
     col: 1
   }

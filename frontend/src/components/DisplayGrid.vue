@@ -23,15 +23,28 @@ console.log('DisplayGrid component loaded')
 // import { defineProps } from 'vue'
 
 const props = defineProps({
-  schema: Object,
-  document: Object
+  schema: { type: Object, required: true },
+  document: { type: Object, required: true }
 })
+
 
 // Extract meta and content
 const title = computed(() => props.schema.__meta__?.title || 'Details')
+
+// Filter visible fields based on their visibility
 const visibleFields = computed(() => {
   const { __meta__, ...fields } = props.schema
-  return fields
+
+  return Object.entries(fields).reduce((acc, [key, field]) => {
+    const isVisible =
+      field.visible === undefined ||
+      (typeof field.visible === 'function'
+        ? field.visible(props.document)
+        : !!field.visible)
+
+    if (isVisible) acc[key] = field
+    return acc
+  }, {})
 })
 
 // Grid style
@@ -56,6 +69,7 @@ function formatValue(value, type) {
   if (type === 'date') return new Date(value).toLocaleDateString()
   return value
 }
+
 </script>
 
 <style scoped>

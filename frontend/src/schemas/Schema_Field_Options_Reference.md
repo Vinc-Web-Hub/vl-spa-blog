@@ -64,11 +64,11 @@ Add `collapsible: true` and `collapsed: true` if you support collapsing.
 
 ## 🧠 Advanced / Optional
 
-| Property        | Type           | Description |
-|----------------|----------------|-------------|
-| `visible`      | `boolean` or `(doc) => boolean` | Conditional display based on document values |
-| `tooltip`      | `string`        | Hover message near label |
-| `class`        | `string`        | Custom class for styling override |
+| Property                   | Type                            | Description |
+|----------------------------|---------------------------------|-------------|
+| `visible`                  | `boolean` or `(doc) => boolean` | Conditional display based on document values            |
+| `tooltip`(not implemented) | `string`                       | Hover message near label |
+| `class` (not implemented)  | `string`                       | Custom class for styling override |
 
 ---
 
