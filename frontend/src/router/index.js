@@ -6,6 +6,7 @@ import BlogScience from '../pages/BlogScience.vue'
 import BlogList from '../pages/BlogList.vue'
 import BlogPost from '../pages/BlogPost.vue'
 import AddPost from '../pages/AddPost.vue'
+import PostDisplayGrid from '../pages/PostDisplayGrid.vue'
 import ModifyPost from '../pages/ModifyPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
@@ -28,6 +29,7 @@ const routes = [
   { path: '/blog-list', name: 'BlogList', component: BlogList },
   { path: '/blog/:id', name: 'BlogPost', component: BlogPost, props: true },
   { path: '/add-post', name: 'AddPost', component: AddPost },
+  { path: '/post/:id', name: 'PostDisplayGrid', component: PostDisplayGrid, props: true },
   { path: '/modify-post/:id', name: 'ModifyPost', component: ModifyPost, props: true },
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
   { path: '/add-vs', name: 'AddVitalSigns', component: AddVitalSigns },

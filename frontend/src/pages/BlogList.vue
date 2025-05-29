@@ -1,75 +1,32 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { fetchAllPosts } from '../services/frontEndService'
-import BlogCard from '../components/BlogCard.vue'
+import GenericList from '../components/GenericList.vue'
+import { fetchAllPosts } from '../services/frontEndService.js'
 
-const router = useRouter()
-const allPosts = ref([])
-const loading = ref(true)
-const error = ref(null)
+const posts = ref([])
 
-const loadPosts = async () => {
-  try {
-    const posts = await fetchAllPosts()
-    allPosts.value = posts
-  } catch (err) {
-    error.value = 'Failed to load posts.'
-    console.error(err)
-  } finally {
-    loading.value = false
-  }
-}
+onMounted(async () => {
+  posts.value = await fetchAllPosts()
+  console.log('Posts fetched:', posts.value) // Optional: Alert for debugging
+})
 
-const goToPost = (id) => {
-  router.push(`/blog/${id}`)
-}
-
-onMounted(loadPosts)
+const columns = [
+  {
+    key: 'title',
+    label: 'Title',
+    link: (p) => `/post/${p._id}`
+  },
+  { key: 'domain', label: 'Domain' },
+  { key: 'date', label: 'Date', type: 'date' }
+]
 </script>
 
 <template>
-  <div class="blog-list-container">
-    <h1 class="blog-list-title">All Blog Posts</h1>
-    <div v-if="loading" class="loading-indicator">Loading...</div>
-    <div v-else-if="error" class="error-message">{{ error }}</div>
-    <div v-else class="blog-cards-container">
-      <BlogCard
-        v-for="post in allPosts"
-        :key="post._id"
-        :post="post"
-        :truncate="true"
-        @card-click="goToPost"
-      />
-    </div>
-  </div>
+  <GenericList
+    title="Post List"
+    :items="posts"
+    :columns="columns"
+    :searchFields="['title', 'domain']"
+    :pageSizeOptions="[10, 20, 50]"
+  />
 </template>
-
-<style scoped>
-.blog-list-container {
-  padding-top: 6rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  min-height: 100vh;
-}
-
-.blog-list-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.loading-indicator,
-.error-message {
-  margin-bottom: 1.5rem;
-}
-
-.blog-cards-container > * {
-  margin-bottom: 1.5rem;
-}
-
-.blog-cards-container > *:last-child {
-  margin-bottom: 0;
-}
-</style>
