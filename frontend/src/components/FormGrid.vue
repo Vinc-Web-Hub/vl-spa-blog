@@ -16,7 +16,7 @@
         </template>
 
         <template v-else-if="shouldShowField(key)">
-          <label :for="getFieldId(key)">{{ field.label || formatLabel(key) }}</label>
+          <label :for="getFieldId(key)" class="form-label">{{ field.label || formatLabel(key) }}</label>
 
           <input
             v-if="field.type === 'string'"
@@ -26,6 +26,7 @@
             :required="field.required"
             :placeholder="field.placeholder"
             :disabled="field.disabled"
+            class="form-input"
           />
 
           <select
@@ -34,6 +35,7 @@
             v-model="formData[key]"
             :required="field.required"
             :disabled="field.disabled"
+            class="form-input"
           >
             <option value="" disabled>{{ field.placeholder || 'Select an option' }}</option>
             <option v-for="option in field.values" :key="option" :value="option">
@@ -49,6 +51,7 @@
             :required="field.required"
             :placeholder="field.placeholder"
             :disabled="field.disabled"
+            class="form-input"
           ></textarea>
 
           <input
@@ -60,6 +63,7 @@
             :disabled="field.disabled"
             :min="field.min"
             :max="field.max"
+            class="form-input"
           />
 
           <input
@@ -72,6 +76,7 @@
             :min="field.min"
             :max="field.max"
             :step="field.step"
+            class="form-input"
           />
 
           <input
@@ -85,7 +90,7 @@
             :step="field.step"
             :placeholder="field.placeholder"
             :disabled="field.disabled"
-            :class="{ 'error-input': fieldErrors[key] }"
+            :class="['form-input', { 'error-input': fieldErrors[key] }]"
             @blur="validateNumberField(key, field)"
             @input="clearFieldError(key)"
           />
@@ -98,6 +103,7 @@
             :required="field.required"
             :placeholder="field.placeholder"
             :disabled="field.disabled"
+            class="form-input"
           />
 
           <div v-else-if="field.type === 'checkbox'" class="checkbox-container">
@@ -113,17 +119,10 @@
             </label>
           </div>
 
-          <div v-else class="error">
-            Unsupported field type: {{ field.type }}
-          </div>
+          <div v-else class="error">Unsupported field type: {{ field.type }}</div>
 
-          <div v-if="field.help" class="help-text">
-            {{ field.help }}
-          </div>
-
-          <div v-if="fieldErrors[key]" class="error-message">
-            {{ fieldErrors[key] }}
-          </div>
+          <div v-if="field.help" class="help-text">{{ field.help }}</div>
+          <div v-if="fieldErrors[key]" class="error-message">{{ fieldErrors[key] }}</div>
         </template>
       </div>
 
@@ -155,24 +154,22 @@ const emit = defineEmits(['submit'])
 const formData = reactive({})
 const fieldErrors = reactive({})
 
-// Title
-const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Grid Form')
+const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Form')
 
-// Container style with dynamic max-width
-const containerStyle = computed(() => {
-  const maxWidth = props.schema.__meta__?.maxWidth || '800px'
-  return {
-    maxWidth: maxWidth
-  }
-})
-
-// Fields without __meta__
 const visibleFields = computed(() => {
   const { __meta__, ...fields } = props.schema
   return fields
 })
 
-// Dynamically compute the number of columns from the highest col + colSpan
+const containerStyle = computed(() => {
+  const maxWidth = props.schema.__meta__?.maxWidth || '800px'
+  return {
+    maxWidth: maxWidth,
+    margin: '6rem auto 0 auto',
+    padding: '2rem'
+  }
+})
+
 const totalColumns = computed(() => {
   let maxCol = 1
   for (const field of Object.values(visibleFields.value)) {
@@ -184,12 +181,10 @@ const totalColumns = computed(() => {
   return Math.max(maxCol, props.schema.__meta__?.minColumns || 1)
 })
 
-// CSS grid template style
 const gridTemplate = computed(() => ({
   gridTemplateColumns: `repeat(${totalColumns.value}, 1fr)`
 }))
 
-// Positioning of inputs
 const gridStyle = (field) => ({
   gridColumn: `${field.col ?? 1} / span ${field.colSpan ?? (field.type === 'section' ? totalColumns.value : 1)}`,
   gridRow: field.row ? `${field.row} / span ${field.rowSpan ?? 1}` : 'auto',
@@ -197,27 +192,23 @@ const gridStyle = (field) => ({
   justifySelf: field.justify ?? 'stretch'
 })
 
-// Submit button spans entire width
 const submitButtonStyle = computed(() => ({
   gridColumn: `1 / span ${totalColumns.value}`
 }))
 
-// Initialize default values
 watchEffect(() => {
   for (const [key, field] of Object.entries(visibleFields.value)) {
     if (field.type === 'section' && !(key in openSections)) {
-      openSections[key] = field.open !== false // sections open by default unless explicitly closed
+      openSections[key] = field.open !== false
     }
     if (!(key in formData) && field.type !== 'section') {
-      formData[key] = getDefaultValue(field)
+      formData[key] = props.initialValues[key] ?? getDefaultValue(field)
     }
   }
 })
 
 function getDefaultValue(field) {
-  // Check for explicit default value first
   if (field.default !== undefined) return field.default
-  
   switch (field.type) {
     case 'string':
     case 'textarea':
@@ -228,16 +219,10 @@ function getDefaultValue(field) {
     case 'checkbox':
       return false
     case 'date':
-      // Only use current date if no explicit default and useCurrentDate is true
-      if (field.useCurrentDate) {
-        return getCurrentDate()
-      }
+      if (field.useCurrentDate) return getCurrentDate()
       return ''
     case 'time':
-      // Only use current time if no explicit default and useCurrentTime is true
-      if (field.useCurrentTime) {
-        return getCurrentTime()
-      }
+      if (field.useCurrentTime) return getCurrentTime()
       return ''
     case 'enum':
       return ''
@@ -248,28 +233,32 @@ function getDefaultValue(field) {
 
 function getCurrentDate() {
   const now = new Date()
-  const year = now.getFullYear()
-  const month = String(now.getMonth() + 1).padStart(2, '0')
-  const day = String(now.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
+  return now.toISOString().split('T')[0]
 }
 
 function getCurrentTime() {
   const now = new Date()
-  const hours = String(now.getHours()).padStart(2, '0')
-  const minutes = String(now.getMinutes()).padStart(2, '0')
-  return `${hours}:${minutes}`
+  return now.toTimeString().slice(0, 5)
+}
+
+function getFieldId(key) {
+  return `field-${key}`
+}
+
+function formatLabel(key) {
+  return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim()
+}
+
+function toggleSection(key) {
+  openSections[key] = !openSections[key]
 }
 
 function shouldShowField(fieldKey) {
   const field = visibleFields.value[fieldKey]
   if (!field || field.type === 'section') return true
-
-  // Find the closest section *before* this field by row number
   const fieldRow = field.row ?? Infinity
   let closestSectionKey = null
   let closestRow = -1
-
   for (const [key, value] of Object.entries(visibleFields.value)) {
     if (value.type === 'section') {
       const sectionRow = value.row ?? 0
@@ -279,83 +268,34 @@ function shouldShowField(fieldKey) {
       }
     }
   }
-
   return closestSectionKey ? openSections[closestSectionKey] : true
 }
 
-function toggleSection(key) {
-  openSections[key] = !openSections[key]
-}
-
-function getFieldId(key) {
-  return `field-${key}`
-}
-
-function formatLabel(key) {
-  return key.replace(/([A-Z])/g, ' $1')
-    .replace(/^./, str => str.toUpperCase())
-    .trim()
-}
-
-function validateNumberField(fieldKey, field) {
-  const value = formData[fieldKey]
-  
-  // Clear any existing error
-  delete fieldErrors[fieldKey]
-  
-  // Skip validation if field is empty and not required
-  if ((value === null || value === undefined || value === '') && !field.required) {
-    return true
-  }
-  
-  // Check if value exists for required fields
-  if (field.required && (value === null || value === undefined || value === '')) {
-    fieldErrors[fieldKey] = 'This field is required'
+function validateNumberField(key, field) {
+  const value = formData[key]
+  delete fieldErrors[key]
+  if ((value === null || value === '') && !field.required) return true
+  if (field.required && (value === null || value === '')) {
+    fieldErrors[key] = 'This field is required'
     return false
   }
-  
-  // Validate min value
   if (field.min !== undefined && value < field.min) {
-    fieldErrors[fieldKey] = `Value must be at least ${field.min}`
+    fieldErrors[key] = `Min: ${field.min}`
     return false
   }
-  
-  // Validate max value
   if (field.max !== undefined && value > field.max) {
-    fieldErrors[fieldKey] = `Value must be no more than ${field.max}`
+    fieldErrors[key] = `Max: ${field.max}`
     return false
   }
-  
   return true
 }
 
-function clearFieldError(fieldKey) {
-  if (fieldErrors[fieldKey]) {
-    delete fieldErrors[fieldKey]
-  }
-}
-
-function validateAllFields() {
-  let isValid = true
-  
-  for (const [key, field] of Object.entries(visibleFields.value)) {
-    if (field.type === 'number') {
-      const fieldValid = validateNumberField(key, field)
-      if (!fieldValid) isValid = false
-    }
-  }
-  
-  return isValid
+function clearFieldError(key) {
+  delete fieldErrors[key]
 }
 
 async function onSubmit() {
   if (isSubmitting.value) return
-  
-  // Validate all fields before submission
-  if (!validateAllFields()) {
-    return
-  }
-  
   isSubmitting.value = true
   try {
     await emit('submit', { ...formData })
@@ -367,11 +307,11 @@ async function onSubmit() {
 
 <style scoped>
 .form-container {
-  max-width: 800px; /* Default fallback - will be overridden by inline style */
+  max-width: 800px;
   width: 100%;
   margin: 6rem auto 0 auto;
   padding: 2rem;
-  background: var(--color-myapp-white);
+  background: #fff;
   border-radius: 1rem;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -382,7 +322,7 @@ h2 {
   font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--color-text-dark);
+  color: #1f2937;
   letter-spacing: -0.01em;
 }
 
@@ -401,7 +341,7 @@ h2 {
 label {
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--color-text-dark);
+  color: #374151;
   letter-spacing: 0.01em;
 }
 
@@ -410,25 +350,18 @@ select,
 textarea {
   width: 100%;
   padding: 0.65rem 1rem;
-  border: 1px solid var(--color-header-light);
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   font-size: 0.95rem;
-  background: var(--color-myapp-white);
+  background: #f9fafb;
   transition: all 0.2s ease;
-  color: var(--color-text-dark);
-}
-
-input:not([type="checkbox"]).error-input,
-select.error-input,
-textarea.error-input {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+  color: #1f2937;
 }
 
 input:not([type="checkbox"]):focus,
 select:focus,
 textarea:focus {
-  border-color: var(--color-primary);
+  border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   outline: none;
 }
@@ -436,8 +369,8 @@ textarea:focus {
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background-color: var(--color-myapp-white);
-  color: var(--color-header-light);
+  background-color: #f9fafb;
+  color: #9ca3af;
   cursor: not-allowed;
 }
 
@@ -474,15 +407,15 @@ textarea {
 
 .help-text {
   font-size: 0.875rem;
-  color: var(-—color-text-grey);
+  color: #6b7280;
   margin-top: 0.25rem;
 }
 
 .submit-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: var(--color-primary);
-  color: var(--color-myapp-white);
+  background: #2563eb;
+  color: #fff;
   border: none;
   border-radius: 0.5rem;
   font-weight: 500;
@@ -493,23 +426,13 @@ textarea {
 }
 
 .submit-button:hover:not(:disabled) {
-  background: var(--color-primary);
+  background: #1e40af;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button:disabled {
   background: #9ca3af;
   cursor: not-allowed;
-}
-
-.error {
-  font-size: 0.875rem;
-  color: var(--color-text-error);
-  margin-top: 0.25rem;
-  padding: 0.5rem;
-  background-color: var(--color-header-light);
-  border-radius: 0.375rem;
-  border: 1px solid #fecaca;
 }
 
 .error-message {
@@ -521,16 +444,20 @@ textarea {
 
 .section-header {
   grid-column: 1 / -1;
-  background: var(--color-header-light);
-  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
 }
 
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: val(--color-text-dark);
+  color: #1f2937;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -541,7 +468,7 @@ textarea {
 }
 
 .section-title:hover {
-  background-color: var(--color-header-light);
+  background-color: #e5e7eb;
 }
 
 .toggle-icon {
@@ -555,7 +482,7 @@ textarea {
     margin-top: 4rem;
     padding: 1.5rem;
   }
-  
+
   .grid-form {
     gap: 1.25rem;
   }
