@@ -8,7 +8,8 @@
         class="display-cell"
         :style="gridStyle(field)"
       >
-        <label class="display-label">{{ key }}</label>
+        <label class="display-label">{{ field.label || key }}</label>
+
         <div class="display-value">{{ formatValue(document[key], field.type) }}</div>
       </div>
     </div>

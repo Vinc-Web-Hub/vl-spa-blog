@@ -16,16 +16,29 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ GET /api/person - Fetch all persons
+// ✅ GET /api/person - Fetch all person
 router.get('/', async (req, res) => {
   try {
-    const persons = await Person.find();
-    res.status(200).json(persons);
+    const person = await Person.find();
+    res.status(200).json(person);
   } catch (err) {
-    console.error('Error fetching persons:', err);
-    res.status(500).json({ error: 'Failed to fetch persons' });
+    console.error('Error fetching person:', err);
+    res.status(500).json({ error: 'Failed to fetch person' });
   }
 });
 
+// GET /api/person/:id
+router.get('/:id', async (req, res) => {
+  try {
+    const person = await Person.findById(req.params.id)
+    if (!person) {
+      return res.status(404).json({ error: 'Person not found' })
+    }
+    res.json(person)
+  } catch (err) {
+    console.error('Error fetching person by ID:', err)
+    res.status(500).json({ error: 'Failed to fetch person' })
+  }
+})
 
 export default router;

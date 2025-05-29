@@ -10,7 +10,8 @@ import ModifyPost from '../pages/ModifyPost.vue'
 import CreateUser from '../pages/CreateUser.vue'
 import UserLogin from '../pages/UserLogin.vue'
 import CreatePerson from '../pages/CreatePerson.vue'
-import PatientList from '../pages/PatientList.vue'
+import PersonList from '../pages/PersonList.vue'
+import PersonDisplayGrid from '../pages/PersonDisplayGrid.vue'
 import AddVitalSigns from '../pages/AddVitalSigns.vue'
 import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
@@ -30,8 +31,9 @@ const routes = [
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
   { path: '/add-vs', name: 'AddVitalSigns', component: AddVitalSigns },
   { path: '/login', name: 'Login', component: UserLogin },
-  { path: '/add-patient', name: 'CreatePerson', component: CreatePerson }, 
-  { path: '/patient-list', name: 'PatientList', component: PatientList }, 
+  { path: '/add-person', name: 'CreatePerson', component: CreatePerson }, 
+  { path: '/person-list', name: 'PersonList', component: PersonList }, 
+  { path: '/person/:id', name: 'PersonDisplayGrid', component: PersonDisplayGrid, props: true },
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
   { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan },
   { path: '/form-events', name: 'FormEvents', component: TestFormGridEvents },

@@ -1,14 +1,41 @@
 export default {
   __meta__: {
-    title: 'Add New Person'
+    title: 'Person Details'
   },
-  name: { type: 'string', required: true },
-  firstname: { type: 'string', required: true },
-  birthDate: { type: 'date', required: true },
+  name: {
+    type: 'string',
+    label: 'Name',
+    required: true,
+    row: 1,
+    col: 1
+  },
+  firstname: {
+    type: 'string',
+    label: 'First Name',
+    required: true,
+    row: 1,
+    col: 2
+  },
+  birthDate: {
+    type: 'date',
+    label: 'Birth Date',
+    required: true,
+    row: 2,
+    col: 1
+  },
   sex: {
     type: 'enum',
+    label: 'sex',
     values: ['Male', 'Female'],
-    required: true
+    required: true,
+    row: 2,
+    col: 2
   },
-  registrationDate: { type: 'date', required: true },
+  registrationDate: {
+    type: 'date',
+    label: 'Registration Date',
+    required: true,
+    row: 3,
+    col: 1
+  }
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_URL;
 const API_URL_POSTS = `${BASE_URL}/api/posts`;
 const API_URL_USERS = `${BASE_URL}/api/users`;
-const API_URL_PERSONS = `${BASE_URL}/api/persons`;
+const API_URL_PERSONS = `${BASE_URL}/api/person`;
 const API_URL_VS = `${BASE_URL}/api/vital-signs`;
 
 
@@ -148,14 +148,24 @@ export const createVitalSigns = async (postData) => {
   }
 };
 
-// Fetch all patients from the backend
-
-export const fetchAllPatients = async () => {
+// Fetch all person from the backend
+export const fetchAllPerson = async () => {
   try {
     const response = await axios.get(API_URL_PERSONS);
     return response.data;
   } catch (error) {
-    console.error('Error fetching patients:', error);
+    console.error('Error fetching person:', error);
     return [];
   }
 };
+
+// Fetch a single patient by ID
+export const fetchPersonById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL_PERSONS}/${id}`)
+    return response.data
+  } catch (err) {
+    console.error('Failed to fetch person:', err)
+    return null
+  }
+}

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import postsRouter from './routes/postRoutes.js';
 import usersRouter from './routes/userRoutes.js';
-import personsRouter from './routes/personRoutes.js';
+import personRouter from './routes/personRoutes.js';
 import VSRouter from './routes/vitalSignsRoutes.js';
 import dotenv from 'dotenv'
 
@@ -24,8 +24,8 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/posts', postsRouter);
 // Use the users router : l'URL de l'API est /api/users.
 app.use('/api/users', usersRouter);
-// Use the persons router : l'URL de l'API est /api/persons.
-app.use('/api/persons', personsRouter);
+// Use the person router : l'URL de l'API est /api/person.
+app.use('/api/person', personRouter);
 // Use the vital-signs router : l'URL de l'API est //api/vital-signs.
 app.use('/api/vital-signs', VSRouter);
 // Start the server
