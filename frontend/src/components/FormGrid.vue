@@ -202,7 +202,15 @@ watchEffect(() => {
       openSections[key] = field.open !== false
     }
     if (!(key in formData) && field.type !== 'section') {
-      formData[key] = props.initialValues[key] ?? getDefaultValue(field)
+      if (props.initialValues[key] !== undefined) {
+        const val = props.initialValues[key];
+        formData[key] =
+        field.type === 'date' && typeof val === 'string'
+         ? val.slice(0, 10) // Only keep YYYY-MM-DD for <input type="date">
+         : val;
+      } else {
+        formData[key] = getDefaultValue(field);
+      }
     }
   }
 })

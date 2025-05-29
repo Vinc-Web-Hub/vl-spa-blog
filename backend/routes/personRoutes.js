@@ -16,6 +16,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+// PUT /api/person/:id - Update a person by ID
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+
+    const updatedPerson = await Person.findByIdAndUpdate(id, update, {
+      new: true,        // return the updated document
+      runValidators: true // ensure schema validation
+    });
+
+    if (!updatedPerson) {
+      return res.status(404).json({ error: 'Person not found' });
+    }
+
+    res.json(updatedPerson);
+  } catch (err) {
+    console.error('Error updating person:', err);
+    res.status(500).json({ error: 'Failed to update Person' });
+  }
+});
+
 // ✅ GET /api/person - Fetch all person
 router.get('/', async (req, res) => {
   try {

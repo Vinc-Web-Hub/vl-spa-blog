@@ -173,7 +173,7 @@ export const fetchPersonById = async (id) => {
 // Update a person by ID
 export const updatePerson = async (id, updatedData) => {
   try {
-    const response = await axios.put(`${VITE_API_URL_PERSONS}/${id}`, updatedData);
+    const response = await axios.put(`${API_URL_PERSONS}/${id}`, updatedData);
     return response.data;
   } catch (error) {
     console.error('Error updating person:', error);
