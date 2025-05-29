@@ -1,15 +1,3 @@
-<template>
-  <div class="form-outer">
-    <FormGrid
-      v-if="personData"
-      :schema="formSchemaPerson"
-      :initialValues="personData"
-      @submit="handleSubmit"
-    />
-    <p v-else>Loading person data...</p>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -46,4 +34,14 @@ const handleSubmit = async (updated) => {
   padding: 2rem;
   min-height: 100vh;
 }
-</style>
+</style><template>
+  <div class="form-outer">
+    <FormGrid
+      v-if="personData"
+      :schema="formSchemaPerson"
+      :initialValues="personData"
+      @submit="handleSubmit"
+    />
+    <p v-else>Loading person data...</p>
+  </div>
+</template>

@@ -1,8 +1,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { createPerson } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
 import formSchemaPerson from '../schemas/formSchemaPerson.js';
+import { createPerson } from '../services/frontEndService.js';
 
 const router = useRouter();
 

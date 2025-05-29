@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchAllPosts } from '../services/frontEndService'
-import BlogCard from '../components/BlogCard.vue'
+import BlogCard from '../components/PostCard.vue'
 
 const router = useRouter()
 const allPosts = ref([])
@@ -22,15 +22,15 @@ const loadPosts = async () => {
 }
 
 const goToPost = (id) => {
-  router.push(`/blog/${id}`)
+  router.push(`/post/${id}`)
 }
 
 onMounted(loadPosts)
 </script>
 
 <template>
-  <div class="blog-list-container">
-    <h1 class="blog-list-title">All Blog Posts</h1>
+  <div class="post-list-container">
+    <h1 class="post-list-title">All Blog Posts</h1>
     <div v-if="loading" class="loading-indicator">Loading...</div>
     <div v-else-if="error" class="error-message">{{ error }}</div>
     <div v-else class="blog-cards-container">
@@ -46,14 +46,14 @@ onMounted(loadPosts)
 </template>
 
 <style scoped>
-.blog-list-container {
+.post-list-container {
   padding-top: 6rem;
   padding-left: 1rem;
   padding-right: 1rem;
   min-height: 100vh;
 }
 
-.blog-list-title {
+.post-list-title {
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;

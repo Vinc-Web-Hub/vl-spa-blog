@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchPostsByDomain } from '../services/frontEndService'
-import BlogCard from '../components/BlogCard.vue'
+import BlogCard from '../components/PostCard.vue'
 
 const router = useRouter()
 const sciencePosts = ref([])
@@ -22,7 +22,7 @@ const loadSciencePosts = async () => {
 }
 
 const goToPost = (id) => {
-  router.push(`/blog/${id}`)
+  router.push(`/post/${id}`)
 }
 
 onMounted(loadSciencePosts)

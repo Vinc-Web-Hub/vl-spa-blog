@@ -1,15 +1,15 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { createPost } from '../services/frontEndService.js';
-import Form from '../components/Form.vue';
+import Form from '../components/FormGrid.vue';
 import formSchemaPost from '../schemas/formSchemaPost.js';
+import { createPost } from '../services/frontEndService.js';
 
 const router = useRouter();
 
 const handleSubmit = async (formData) => {
   try {
     await createPost(formData);
-    router.push('/blog-list');
+    router.push('/post-list');
   } catch (err) {
     console.error('Failed to save post:', err);
     console.log('Error saving post. Please try again.');

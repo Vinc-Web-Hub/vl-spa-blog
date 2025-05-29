@@ -30,7 +30,7 @@ const cards = [
 
 <template>
   <div class="blog-container">
-  <h1 class="blog-list-title">Welcome to my Universe</h1>
+  <h1 class="post-list-title">Welcome to my Universe</h1>
   <div class="cards-container">
     <ImageCard
       v-for="(card, index) in cards"
@@ -62,7 +62,7 @@ const cards = [
   min-height: 10vh;
 }
 
-.blog-list-title {
+.post-list-title {
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;

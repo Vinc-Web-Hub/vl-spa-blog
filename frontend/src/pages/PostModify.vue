@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getPostById, updatePost } from '../services/frontEndService.js';
 import Form from '../components/Form.vue';
 import formSchemaPost from '../schemas/formSchemaPost.js';
+import { getPostById, updatePost } from '../services/frontEndService.js';
 
 const route = useRoute();
 const router = useRouter();
@@ -28,7 +28,7 @@ onMounted(async () => {
 const handleSubmit = async (formData) => {
   try {
     await updatePost(postId, formData);
-    router.push('/blog-list');
+    router.push('/post-list');
   } catch (err) {
     console.error('Failed to update post:', err);
     console.log('Error updating post. Please try again.');

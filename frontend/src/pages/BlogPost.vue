@@ -19,7 +19,7 @@ const loadPost = async () => {
       post.value = fetchedPost
     } else {
       error.value = 'Post not found.'
-      router.push('/blog-list')
+      router.push('/post-list')
     }
   } catch (err) {
     console.error('Error loading post:', err)
@@ -33,7 +33,7 @@ const handleDelete = async () => {
   if (confirm('Are you sure you want to delete this post?')) {
     try {
       await deletePost(post.value._id)
-      router.push('/blog-list')
+      router.push('/post-list')
     } catch (err) {
       console.error('Delete failed:', err)
       console.log('Failed to delete post.')

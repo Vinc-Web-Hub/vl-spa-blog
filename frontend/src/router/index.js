@@ -1,20 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../pages/Main.vue'
-import Cards from '../pages/Cards.vue'
+import Cards from '../pages/Portfolio.vue'
 import BlogMusic from '../pages/BlogMusic.vue'
 import BlogScience from '../pages/BlogScience.vue'
-import BlogList from '../pages/BlogList.vue'
+import PostList from '../pages/PostList.vue'
 import BlogPost from '../pages/BlogPost.vue'
-import AddPost from '../pages/AddPost.vue'
-import PostDisplayGrid from '../pages/PostDisplayGrid.vue'
-import ModifyPost from '../pages/ModifyPost.vue'
-import CreateUser from '../pages/CreateUser.vue'
-import UserLogin from '../pages/UserLogin.vue'
-import CreatePerson from '../pages/CreatePerson.vue'
-import ModifyPerson from '../pages/ModifyPerson.vue'
+import PostDisplayGrid from '../pages/PostDisplay.vue'
+import CreatePost from '../pages/PostCreate.vue'
+import ModifyPost from '../pages/PostModify.vue'
+import CreateUser from '../pages/UserCreate.vue'
+import CreatePerson from '../pages/PersonCreate.vue'
+import ModifyPerson from '../pages/PersonModify.vue'
 import PersonList from '../pages/PersonList.vue'
-import PersonDisplayGrid from '../pages/PersonDisplayGrid.vue'
-import AddVitalSigns from '../pages/AddVitalSigns.vue'
+import PersonDisplayGrid from '../pages/PersonDisplay.vue'
+import CreateVitalSigns from '../pages/VitalSignsCreate.vue'
+import UserLogin from '../pages/UserLogin.vue'
 import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
 import TestFormGridEvents from '../pages/TestFormGridEvents.vue'
@@ -26,18 +26,18 @@ const routes = [
   { path: '/cards', name: 'Cards', component: Cards },
   { path: '/blog-music', name: 'BlogMusic', component: BlogMusic },
   { path: '/blog-science', name: 'BlogScience', component: BlogScience },
-  { path: '/blog-list', name: 'BlogList', component: BlogList },
+  { path: '/post-list', name: 'PostList', component: PostList },
   { path: '/blog/:id', name: 'BlogPost', component: BlogPost, props: true },
-  { path: '/add-post', name: 'AddPost', component: AddPost },
   { path: '/post/:id', name: 'PostDisplayGrid', component: PostDisplayGrid, props: true },
+  { path: '/create-post', name: 'CreatePost', component: CreatePost },
   { path: '/modify-post/:id', name: 'ModifyPost', component: ModifyPost, props: true },
   { path: '/create-user', name: 'CreateUser', component: CreateUser },
-  { path: '/add-vs', name: 'AddVitalSigns', component: AddVitalSigns },
-  { path: '/login', name: 'Login', component: UserLogin },
-  { path: '/add-person', name: 'CreatePerson', component: CreatePerson },
+  { path: '/create-person', name: 'CreatePerson', component: CreatePerson },
   { path: '/modify-person/:id', name: 'ModifyPerson', component: ModifyPerson, props: true },
   { path: '/person-list', name: 'PersonList', component: PersonList }, 
   { path: '/person/:id', name: 'PersonDisplayGrid', component: PersonDisplayGrid, props: true },
+  { path: '/create-vs', name: 'CreateVitalSigns', component: CreateVitalSigns },
+  { path: '/login', name: 'Login', component: UserLogin },
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
   { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan },
   { path: '/form-events', name: 'FormEvents', component: TestFormGridEvents },

@@ -45,8 +45,8 @@ onBeforeUnmount(() => {
         <RouterLink to="/cards" class="nav-link">Portfolio</RouterLink>
         <RouterLink to="/blog-music" class="nav-link">Blog Music</RouterLink>
         <RouterLink to="/blog-science" class="nav-link">Blog Science</RouterLink>
-        <RouterLink to="/blog-list" class="nav-link">Blog List</RouterLink>
-        <RouterLink to="/add-post" class="nav-link">Add Post</RouterLink>
+        <RouterLink to="/post-list" class="nav-link">Blog List</RouterLink>
+        <RouterLink to="/create-post" class="nav-link">Add Post</RouterLink>
         <RouterLink to="/login" class="nav-link">Login</RouterLink>
       </nav>
 
@@ -63,8 +63,8 @@ onBeforeUnmount(() => {
         <RouterLink to="/cards" class="mobile-link" @click="menuOpen = false">Portfolio</RouterLink>
         <RouterLink to="/blog-music" class="mobile-link" @click="menuOpen = false">Blog Music</RouterLink>
         <RouterLink to="/blog-science" class="mobile-link" @click="menuOpen = false">Blog Science</RouterLink>
-        <RouterLink to="/blog-list" class="mobile-link" @click="menuOpen = false">Blog List</RouterLink>
-        <RouterLink to="/add-post" class="mobile-link" @click="menuOpen = false">Add Post</RouterLink>
+        <RouterLink to="/post-list" class="mobile-link" @click="menuOpen = false">Blog List</RouterLink>
+        <RouterLink to="/create-post" class="mobile-link" @click="menuOpen = false">Add Post</RouterLink>
         <RouterLink to="/login" class="mobile-link" @click="menuOpen = false">Login</RouterLink>      
     </nav>
     </transition>
