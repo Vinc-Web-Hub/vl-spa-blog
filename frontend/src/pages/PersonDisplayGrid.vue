@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import DisplayGrid from '../components/DisplayGrid.vue'
 import formSchemaPerson from '../schemas/formSchemaPerson.js'
+import ToolBar from '../components/ToolBar.vue'
+import toolBarSchema from '../schemas/toolBarSchema.js'
 import { fetchPersonById } from '../services/frontEndService.js'
 
 const route = useRoute()
@@ -19,10 +21,12 @@ onMounted(async () => {
 <template>
   <div class="test-wrapper">
     <div v-if="personData">
+      <ToolBar :schema="toolBarSchema" :context="{ id: personData._id }" />
       <DisplayGrid :schema="formSchemaPerson" :document="personData" />
     </div>
     <p v-else>Loading...</p>
   </div>
+  
 </template>
 
 <style scoped>
