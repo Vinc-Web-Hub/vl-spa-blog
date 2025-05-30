@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import FormGrid from '../components/FormGrid.vue';
-import formSchemaPerson from '../schemas/formSchemaPerson.js';
+import formSchemaPerson from '../schemas/formSchemaPersonModify.js';
 import { fetchPersonById, updatePerson } from '../services/frontEndService.js';
 
 const route = useRoute();

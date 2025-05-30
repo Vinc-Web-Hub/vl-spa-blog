@@ -1,6 +1,6 @@
 export default {
   __meta__: {
-    title: 'Current Post',
+    title: 'Add New Post',
     maxWidth: '600px'
   },
   title: { type: 'string', required: true, row: 1, col: 1, colSpan: 2, label: 'Title', placeholder: 'Enter post title' },

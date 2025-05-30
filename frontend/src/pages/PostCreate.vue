@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import Form from '../components/FormGrid.vue';
-import formSchemaPost from '../schemas/formSchemaPost.js';
+import formSchemaPost from '../schemas/formSchemaPostCreate.js';
 import { createPost } from '../services/frontEndService.js';
 
 const router = useRouter();

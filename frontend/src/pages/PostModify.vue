@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import FormGrid from '../components/FormGrid.vue';
-import formSchemaPost from '../schemas/formSchemaPost.js';
+import formSchemaPost from '../schemas/formSchemaPostModify.js';
 import { fetchPostById, updatePost } from '../services/frontEndService.js';
 
 const route = useRoute();
@@ -43,7 +43,8 @@ const handleSubmit = async (updated) => {
 
 <style scoped>
 .form-outer {
-  padding: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   min-height: 100vh;
 }
 </style>

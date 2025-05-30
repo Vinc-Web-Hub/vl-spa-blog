@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import DisplayGrid from '../components/DisplayGrid.vue'
-import formSchemaPerson from '../schemas/formSchemaPerson.js'
+import formSchemaPerson from '../schemas/formSchemaPersonDisplay.js'
 import ToolBar from '../components/ToolBar.vue'
 import toolBarSchema from '../schemas/toolBarSchema.js'
 import { fetchPersonById } from '../services/frontEndService.js'
