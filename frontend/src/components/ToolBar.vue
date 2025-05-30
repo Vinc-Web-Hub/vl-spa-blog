@@ -7,16 +7,35 @@
           :class="item.class || 'toolbar-button'"
           @click="handleAction(item.action)"
         >
+          <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
           {{ item.label }}
         </button>
-        <!-- Extend with other types: icon, dropdown, etc. -->
+
+        <div v-else-if="item.type === 'dropdown'" class="dropdown" ref="dropdownRefs[index]">
+          <button
+            :class="item.class || 'toolbar-button'"
+            @click="toggleDropdown(index)"
+          >
+            <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
+            {{ item.label }} ▼
+          </button>
+          <ul v-if="openDropdown === index" class="dropdown-menu">
+            <li
+              v-for="(option, idx) in item.options"
+              :key="idx"
+              @click="handleAction(option.action); closeDropdown()"
+            >
+              {{ option.label }}
+            </li>
+          </ul>
+        </div>
       </template>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 
 const props = defineProps({
@@ -26,12 +45,14 @@ const props = defineProps({
   },
   context: {
     type: Object,
-    default: () => ({}) // e.g. { id: '1234' }
+    default: () => ({})
   }
 })
 
 const emit = defineEmits(['custom-action'])
 const router = useRouter()
+const openDropdown = ref(null)
+const dropdownRefs = ref([])
 
 function handleAction(action) {
   if (!action || typeof action !== 'object') return
@@ -50,6 +71,32 @@ function handleAction(action) {
       console.warn('Unknown action type:', action)
   }
 }
+
+function toggleDropdown(index) {
+  openDropdown.value = openDropdown.value === index ? null : index
+}
+
+function closeDropdown() {
+  openDropdown.value = null
+}
+
+function handleClickOutside(event) {
+  if (
+    openDropdown.value !== null &&
+    dropdownRefs.value[openDropdown.value] &&
+    !dropdownRefs.value[openDropdown.value].contains(event.target)
+  ) {
+    closeDropdown()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style scoped>
@@ -78,10 +125,47 @@ function handleAction(action) {
   text-align: center;
   cursor: pointer;
   transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .toolbar-button:hover {
   background-color: #1e40af;
+}
+
+.icon {
+  display: inline-block;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  list-style: none;
+  padding: 0.5rem 0;
+  min-width: 150px;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f3f4f6;
 }
 
 @media (max-width: 600px) {
