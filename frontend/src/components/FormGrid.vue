@@ -1,138 +1,3 @@
-<template>
-  <div class="form-container" :style="containerStyle">
-    <h2>{{ formTitle }}</h2>
-    <form @submit.prevent="onSubmit" class="grid-form" :style="gridTemplate">
-      <div
-        v-for="(field, key) in visibleFields"
-        :key="key"
-        :class="['form-group', field.type === 'section' ? 'section-header' : '']"
-        :style="gridStyle(field)"
-      >
-        <template v-if="field.type === 'section'">
-          <div class="section-title" @click="toggleSection(key)">
-            <span>{{ field.label || key }}</span>
-            <span class="toggle-icon">{{ openSections[key] ? '▾' : '▸' }}</span>
-          </div>
-        </template>
-
-        <template v-else-if="shouldShowField(key)">
-          <label :for="getFieldId(key)" class="form-label">{{ field.label || formatLabel(key) }}</label>
-
-          <input
-            v-if="field.type === 'string'"
-            :id="getFieldId(key)"
-            :type="field.inputType || 'text'"
-            v-model="formData[key]"
-            :required="field.required"
-            :placeholder="field.placeholder"
-            :disabled="field.disabled"
-            class="form-input"
-          />
-
-          <select
-            v-else-if="field.type === 'enum'"
-            :id="getFieldId(key)"
-            v-model="formData[key]"
-            :required="field.required"
-            :disabled="field.disabled"
-            class="form-input"
-          >
-            <option value="" disabled>{{ field.placeholder || 'Select an option' }}</option>
-            <option v-for="option in field.values" :key="option" :value="option">
-              {{ option }}
-            </option>
-          </select>
-
-          <textarea
-            v-else-if="field.type === 'textarea'"
-            :id="getFieldId(key)"
-            v-model="formData[key]"
-            :rows="field.rows || 4"
-            :required="field.required"
-            :placeholder="field.placeholder"
-            :disabled="field.disabled"
-            class="form-input"
-          ></textarea>
-
-          <input
-            v-else-if="field.type === 'date'"
-            :id="getFieldId(key)"
-            type="date"
-            v-model="formData[key]"
-            :required="field.required"
-            :disabled="field.disabled"
-            :min="field.min"
-            :max="field.max"
-            class="form-input"
-          />
-
-          <input
-            v-else-if="field.type === 'time'"
-            :id="getFieldId(key)"
-            type="time"
-            v-model="formData[key]"
-            :required="field.required"
-            :disabled="field.disabled"
-            :min="field.min"
-            :max="field.max"
-            :step="field.step"
-            class="form-input"
-          />
-
-          <input
-            v-else-if="field.type === 'number'"
-            :id="getFieldId(key)"
-            type="number"
-            v-model.number="formData[key]"
-            :required="field.required"
-            :min="field.min"
-            :max="field.max"
-            :step="field.step"
-            :placeholder="field.placeholder"
-            :disabled="field.disabled"
-            :class="['form-input', { 'error-input': fieldErrors[key] }]"
-            @blur="validateNumberField(key, field)"
-            @input="clearFieldError(key)"
-          />
-
-          <input
-            v-else-if="field.type === 'email'"
-            :id="getFieldId(key)"
-            type="email"
-            v-model="formData[key]"
-            :required="field.required"
-            :placeholder="field.placeholder"
-            :disabled="field.disabled"
-            class="form-input"
-          />
-
-          <div v-else-if="field.type === 'checkbox'" class="checkbox-container">
-            <input
-              :id="getFieldId(key)"
-              type="checkbox"
-              v-model="formData[key]"
-              :required="field.required"
-              :disabled="field.disabled"
-            />
-            <label :for="getFieldId(key)" class="checkbox-label">
-              {{ field.checkboxLabel || field.label || formatLabel(key) }}
-            </label>
-          </div>
-
-          <div v-else class="error">Unsupported field type: {{ field.type }}</div>
-
-          <div v-if="field.help" class="help-text">{{ field.help }}</div>
-          <div v-if="fieldErrors[key]" class="error-message">{{ fieldErrors[key] }}</div>
-        </template>
-      </div>
-
-      <button type="submit" class="submit-button" :style="submitButtonStyle" :disabled="isSubmitting">
-        {{ isSubmitting ? 'Submitting...' : (schema.__meta__?.submitText || 'Submit') }}
-      </button>
-    </form>
-  </div>
-</template>
-
 <script setup>
 import { reactive, ref, computed, watchEffect } from 'vue'
 
@@ -317,6 +182,141 @@ async function onSubmit() {
   }
 }
 </script>
+
+<template>
+  <div class="form-container" :style="containerStyle">
+    <h2>{{ formTitle }}</h2>
+    <form @submit.prevent="onSubmit" class="grid-form" :style="gridTemplate">
+      <div
+        v-for="(field, key) in visibleFields"
+        :key="key"
+        :class="['form-group', field.type === 'section' ? 'section-header' : '']"
+        :style="gridStyle(field)"
+      >
+        <template v-if="field.type === 'section'">
+          <div class="section-title" @click="toggleSection(key)">
+            <span>{{ field.label || key }}</span>
+            <span class="toggle-icon">{{ openSections[key] ? '▾' : '▸' }}</span>
+          </div>
+        </template>
+
+        <template v-else-if="shouldShowField(key)">
+          <label :for="getFieldId(key)" class="form-label">{{ field.label || formatLabel(key) }}</label>
+
+          <input
+            v-if="field.type === 'string'"
+            :id="getFieldId(key)"
+            :type="field.inputType || 'text'"
+            v-model="formData[key]"
+            :required="field.required"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+            class="form-input"
+          />
+
+          <select
+            v-else-if="field.type === 'enum'"
+            :id="getFieldId(key)"
+            v-model="formData[key]"
+            :required="field.required"
+            :disabled="field.disabled"
+            class="form-input"
+          >
+            <option value="" disabled>{{ field.placeholder || 'Select an option' }}</option>
+            <option v-for="option in field.values" :key="option" :value="option">
+              {{ option }}
+            </option>
+          </select>
+
+          <textarea
+            v-else-if="field.type === 'textarea'"
+            :id="getFieldId(key)"
+            v-model="formData[key]"
+            :rows="field.rows || 4"
+            :required="field.required"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+            class="form-input"
+          ></textarea>
+
+          <input
+            v-else-if="field.type === 'date'"
+            :id="getFieldId(key)"
+            type="date"
+            v-model="formData[key]"
+            :required="field.required"
+            :disabled="field.disabled"
+            :min="field.min"
+            :max="field.max"
+            class="form-input"
+          />
+
+          <input
+            v-else-if="field.type === 'time'"
+            :id="getFieldId(key)"
+            type="time"
+            v-model="formData[key]"
+            :required="field.required"
+            :disabled="field.disabled"
+            :min="field.min"
+            :max="field.max"
+            :step="field.step"
+            class="form-input"
+          />
+
+          <input
+            v-else-if="field.type === 'number'"
+            :id="getFieldId(key)"
+            type="number"
+            v-model.number="formData[key]"
+            :required="field.required"
+            :min="field.min"
+            :max="field.max"
+            :step="field.step"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+            :class="['form-input', { 'error-input': fieldErrors[key] }]"
+            @blur="validateNumberField(key, field)"
+            @input="clearFieldError(key)"
+          />
+
+          <input
+            v-else-if="field.type === 'email'"
+            :id="getFieldId(key)"
+            type="email"
+            v-model="formData[key]"
+            :required="field.required"
+            :placeholder="field.placeholder"
+            :disabled="field.disabled"
+            class="form-input"
+          />
+
+          <div v-else-if="field.type === 'checkbox'" class="checkbox-container">
+            <input
+              :id="getFieldId(key)"
+              type="checkbox"
+              v-model="formData[key]"
+              :required="field.required"
+              :disabled="field.disabled"
+            />
+            <label :for="getFieldId(key)" class="checkbox-label">
+              {{ field.checkboxLabel || field.label || formatLabel(key) }}
+            </label>
+          </div>
+
+          <div v-else class="error">Unsupported field type: {{ field.type }}</div>
+
+          <div v-if="field.help" class="help-text">{{ field.help }}</div>
+          <div v-if="fieldErrors[key]" class="error-message">{{ fieldErrors[key] }}</div>
+        </template>
+      </div>
+
+      <button type="submit" class="submit-button" :style="submitButtonStyle" :disabled="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : (schema.__meta__?.submitText || 'Submit') }}
+      </button>
+    </form>
+  </div>
+</template>
 
 <style scoped>
 .form-container {

@@ -1,79 +1,3 @@
-<template>
-  <div class="generic-list">
-    <h2>{{ title }}</h2>
-
-    <div class="header-controls">
-      <div class="search-controls">
-        <input
-          @input="onSearchInput"
-          type="text"
-          :value="searchRaw"
-          :placeholder="`Search ${searchFields.join(' or ')}`"
-          class="search-input"
-        />
-        <button @click="resetSearch" class="reset-button">Reset</button>
-      </div>
-
-      <div class="page-size-selector">
-        <label>Rows per page:</label>
-        <select v-model.number="perPage">
-          <option v-for="option in pageSizeOptions" :key="option" :value="option">
-            {{ option }}
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <table class="data-table" v-if="paginatedItems.length">
-      <thead>
-        <tr>
-          <th
-            v-for="col in columns"
-            :key="col.key"
-            @click="sortBy(col.key)"
-          >
-            {{ col.label }}
-            <span>
-              <span v-if="sortKey === col.key">{{ sortAsc ? '▲' : '▼' }}</span>
-              <span v-else>⇅</span>
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in paginatedItems" :key="item._id || item.id">
-          <td v-for="col in columns" :key="col.key">
-            <router-link
-              v-if="col.link"
-              :to="col.link(item)"
-            >
-              {{ item[col.key] }}
-            </router-link>
-            <span v-else>
-              {{ format(item[col.key], col.type) }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div v-if="filteredItems.length > perPage" class="pagination">
-      <button :disabled="currentPage === 1" @click="currentPage--">Previous</button>
-      <button
-        v-for="page in totalPages"
-        :key="page"
-        :class="{ active: page === currentPage }"
-        @click="currentPage = page"
-      >
-        {{ page }}
-      </button>
-      <button :disabled="currentPage === totalPages" @click="currentPage++">Next</button>
-    </div>
-
-    <p v-else-if="!filteredItems.length" class="no-results">No items found.</p>
-  </div>
-</template>
-
 <script setup>
 import { defineProps, ref, computed, watch } from 'vue';
 import debounce from 'lodash.debounce';
@@ -159,6 +83,82 @@ function format(value, type) {
   return value ?? '';
 }
 </script>
+
+<template>
+  <div class="generic-list">
+    <h2>{{ title }}</h2>
+
+    <div class="header-controls">
+      <div class="search-controls">
+        <input
+          @input="onSearchInput"
+          type="text"
+          :value="searchRaw"
+          :placeholder="`Search ${searchFields.join(' or ')}`"
+          class="search-input"
+        />
+        <button @click="resetSearch" class="reset-button">Reset</button>
+      </div>
+
+      <div class="page-size-selector">
+        <label>Rows per page:</label>
+        <select v-model.number="perPage">
+          <option v-for="option in pageSizeOptions" :key="option" :value="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <table class="data-table" v-if="paginatedItems.length">
+      <thead>
+        <tr>
+          <th
+            v-for="col in columns"
+            :key="col.key"
+            @click="sortBy(col.key)"
+          >
+            {{ col.label }}
+            <span>
+              <span v-if="sortKey === col.key">{{ sortAsc ? '▲' : '▼' }}</span>
+              <span v-else>⇅</span>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in paginatedItems" :key="item._id || item.id">
+          <td v-for="col in columns" :key="col.key">
+            <router-link
+              v-if="col.link"
+              :to="col.link(item)"
+            >
+              {{ item[col.key] }}
+            </router-link>
+            <span v-else>
+              {{ format(item[col.key], col.type) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div v-if="filteredItems.length > perPage" class="pagination">
+      <button :disabled="currentPage === 1" @click="currentPage--">Previous</button>
+      <button
+        v-for="page in totalPages"
+        :key="page"
+        :class="{ active: page === currentPage }"
+        @click="currentPage = page"
+      >
+        {{ page }}
+      </button>
+      <button :disabled="currentPage === totalPages" @click="currentPage++">Next</button>
+    </div>
+
+    <p v-else-if="!filteredItems.length" class="no-results">No items found.</p>
+  </div>
+</template>
 
 <style scoped>
 .generic-list {

@@ -1,21 +1,3 @@
-<template>
-  <div 
-    class="post-card"
-    @click="$emit('card-click', post._id)"
-  >
-    <!-- Title and Date section -->
-    <div class="card-header">
-      <h2 class="card-title">{{ post.title }}</h2>
-      <span class="card-date">{{ formattedDate }}</span>
-    </div>
-    <!-- Content section -->
-    <div class="card-content">
-      <p v-if="truncate" class="card-text truncated">{{ post.content }}</p>
-      <p v-else class="card-text">{{ post.content }}</p>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { computed } from 'vue'
 
@@ -39,6 +21,24 @@ const formattedDate = computed(() => {
   })
 })
 </script>
+
+<template>
+  <div 
+    class="post-card"
+    @click="$emit('card-click', post._id)"
+  >
+    <!-- Title and Date section -->
+    <div class="card-header">
+      <h2 class="card-title">{{ post.title }}</h2>
+      <span class="card-date">{{ formattedDate }}</span>
+    </div>
+    <!-- Content section -->
+    <div class="card-content">
+      <p v-if="truncate" class="card-text truncated">{{ post.content }}</p>
+      <p v-else class="card-text">{{ post.content }}</p>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .post-card {

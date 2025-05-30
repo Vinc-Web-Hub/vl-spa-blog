@@ -1,3 +1,54 @@
+<script setup>
+import { reactive, computed, watch } from 'vue'
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps({
+  schema: {
+    type: Object,
+    required: true
+  },
+  initialData: {
+    type: Object,
+    default: () => ({})
+  }
+})
+
+const emit = defineEmits(['submit'])
+
+const formData = reactive({})
+
+// Computed title
+const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Form')
+
+// Filter out __meta__ for visible fields
+const visibleFields = computed(() => {
+  const copy = { ...props.schema }
+  delete copy.__meta__
+  return copy
+})
+
+// Reinitialize formData when initialData is set or updated
+watch(
+  () => props.initialData,
+  (newData) => {
+    if (newData) {
+      for (const key in visibleFields.value) {
+        const field = visibleFields.value[key]
+        formData[key] =
+          newData[key] ??
+          field.default ??
+          (field.type === 'string' || field.type === 'textarea' ? '' : null)
+      }
+    }
+  },
+  { immediate: true }
+)
+
+function onSubmit() {
+  emit('submit', { ...formData })
+}
+</script>
+
 <template>
   <div class="form-container">
     <h2>{{ formTitle }}</h2>
@@ -57,58 +108,6 @@
     </form>
   </div>
 </template>
-
-<script setup>
-import { reactive, computed, watch } from 'vue'
-import { defineProps, defineEmits } from 'vue'
-
-const props = defineProps({
-  schema: {
-    type: Object,
-    required: true
-  },
-  initialData: {
-    type: Object,
-    default: () => ({})
-  }
-})
-
-const emit = defineEmits(['submit'])
-
-const formData = reactive({})
-
-// Computed title
-const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Form')
-
-// Filter out __meta__ for visible fields
-const visibleFields = computed(() => {
-  const copy = { ...props.schema }
-  delete copy.__meta__
-  return copy
-})
-
-// Reinitialize formData when initialData is set or updated
-watch(
-  () => props.initialData,
-  (newData) => {
-    if (newData) {
-      for (const key in visibleFields.value) {
-        const field = visibleFields.value[key]
-        formData[key] =
-          newData[key] ??
-          field.default ??
-          (field.type === 'string' || field.type === 'textarea' ? '' : null)
-      }
-    }
-  },
-  { immediate: true }
-)
-
-function onSubmit() {
-  emit('submit', { ...formData })
-}
-</script>
-
 
 <style scoped>
 .form-container {

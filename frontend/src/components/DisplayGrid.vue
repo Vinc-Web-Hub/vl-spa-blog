@@ -1,21 +1,3 @@
-<template>
-  <div class="display-grid-container">
-    <h2>{{ title }}</h2>
-    <div class="grid-display" :style="`grid-template-columns: repeat(${totalColumns}, 1fr);`">
-      <div
-        v-for="(field, key) in visibleFields"
-        :key="key"
-        class="display-cell"
-        :style="gridStyle(field)"
-      >
-        <label class="display-label">{{ field.label || key }}</label>
-
-        <div class="display-value">{{ formatValue(document[key], field.type) }}</div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { computed } from 'vue'
 
@@ -27,7 +9,6 @@ const props = defineProps({
   document: { type: Object, required: true },
   title: { type: String, default: '' }
 })
-
 
 // Extract meta and content
 const title = computed(() => props.title || props.schema.__meta__?.title || 'Details')
@@ -72,6 +53,24 @@ function formatValue(value, type) {
 }
 
 </script>
+
+<template>
+  <div class="display-grid-container">
+    <h2>{{ title }}</h2>
+    <div class="grid-display" :style="`grid-template-columns: repeat(${totalColumns}, 1fr);`">
+      <div
+        v-for="(field, key) in visibleFields"
+        :key="key"
+        class="display-cell"
+        :style="gridStyle(field)"
+      >
+        <label class="display-label">{{ field.label || key }}</label>
+
+        <div class="display-value">{{ formatValue(document[key], field.type) }}</div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .display-grid-container {
