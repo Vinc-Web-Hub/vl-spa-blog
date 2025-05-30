@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import FormGrid from '../components/FormGrid.vue';
-import formSchemaPost from '../schemas/formSchemaPostModify.js';
+import formSchemaPost from '../schemas/formSchemaPost.js';
 import { fetchPostById, updatePost } from '../services/frontEndService.js';
 
 const route = useRoute();
@@ -35,6 +35,7 @@ const handleSubmit = async (updated) => {
       v-if="postData"
       :schema="formSchemaPost"
       :initialValues="postData"
+      :title="'Modify Post ...'"
       @submit="handleSubmit"
     />
     <p v-else>Loading post data...</p>

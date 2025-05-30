@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import FormGrid from '../components/FormGrid.vue';
-import formSchemaPerson from '../schemas/formSchemaPersonModify.js';
+import formSchemaPerson from '../schemas/formSchemaPerson.js';
 import { fetchPersonById, updatePerson } from '../services/frontEndService.js';
 
 const route = useRoute();
@@ -40,6 +40,7 @@ const handleSubmit = async (updated) => {
       v-if="personData"
       :schema="formSchemaPerson"
       :initialValues="personData"
+      :title="'Modify Person ...'"
       @submit="handleSubmit"
     />
     <p v-else>Loading person data...</p>

@@ -24,12 +24,13 @@ console.log('DisplayGrid component loaded')
 
 const props = defineProps({
   schema: { type: Object, required: true },
-  document: { type: Object, required: true }
+  document: { type: Object, required: true },
+  title: { type: String, default: '' }
 })
 
 
 // Extract meta and content
-const title = computed(() => props.schema.__meta__?.title || 'Details')
+const title = computed(() => props.title || props.schema.__meta__?.title || 'Details')
 
 // Filter visible fields based on their visibility
 const visibleFields = computed(() => {

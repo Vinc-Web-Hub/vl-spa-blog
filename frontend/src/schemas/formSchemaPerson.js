@@ -1,6 +1,6 @@
 export default {
   __meta__: {
-    title: 'Modify Person'
+    title: 'Current Person'
   },
   name: {
     type: 'string',

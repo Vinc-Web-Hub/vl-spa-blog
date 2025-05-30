@@ -147,6 +147,10 @@ const props = defineProps({
   initialValues: {
     type: Object,
     default: () => ({})
+  },
+  title: {
+    type: String,
+    default: ''
   }
 })
 
@@ -154,7 +158,8 @@ const emit = defineEmits(['submit'])
 const formData = reactive({})
 const fieldErrors = reactive({})
 
-const formTitle = computed(() => props.schema.__meta__?.title || 'Dynamic Form')
+const formTitle = computed(() => props.title || props.schema.__meta__?.title || 'Untitled Form')
+
 
 const visibleFields = computed(() => {
   const { __meta__, ...fields } = props.schema

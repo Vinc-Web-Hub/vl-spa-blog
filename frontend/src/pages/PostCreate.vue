@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import Form from '../components/FormGrid.vue';
-import formSchemaPost from '../schemas/formSchemaPostCreate.js';
+import formSchemaPost from '../schemas/formSchemaPost.js';
 import { createPost } from '../services/frontEndService.js';
 
 const router = useRouter();
@@ -19,7 +19,7 @@ const handleSubmit = async (formData) => {
 
 <template>
   <div class="form-outer">
-      <Form :schema="formSchemaPost" @submit="handleSubmit" />
+      <Form :schema="formSchemaPost" :title="'Create Post...'" @submit="handleSubmit" />
   </div>
 </template>
 
