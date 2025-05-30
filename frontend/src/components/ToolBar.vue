@@ -2,6 +2,7 @@
   <div class="toolbar-wrapper">
     <div class="toolbar">
       <template v-for="(item, index) in schema" :key="index">
+        <pre>{{ item }}</pre>
         <button
           v-if="item.type === 'button'"
           :class="item.class || 'toolbar-button'"
@@ -10,24 +11,24 @@
           <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
           {{ item.label }}
         </button>
-
         <div v-else-if="item.type === 'dropdown'" class="dropdown" ref="dropdownRefs[index]">
-          <button
-            :class="item.class || 'toolbar-button'"
-            @click="toggleDropdown(index)"
-          >
-            <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
-            {{ item.label }} ▼
-          </button>
-          <ul v-if="openDropdown === index" class="dropdown-menu">
-            <li
-              v-for="(option, idx) in item.options"
-              :key="idx"
-              @click="handleAction(option.action); closeDropdown()"
+            <button
+                :class="['toolbar-button', item.color || '', item.class || '']"
+                :style="{ maxWidth: item.maxWidth || 'none' }"
+                @click="toggleDropdown(index)"
             >
-              {{ option.label }}
-            </li>
-          </ul>
+                <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
+                {{ item.label }} ▼
+            </button>
+            <ul v-if="openDropdown === index" class="dropdown-menu">
+                <li
+                    v-for="(option, idx) in item.options"
+                    :key="idx"
+                    @click="handleAction(option.action); closeDropdown()"
+                >
+                {{ option.label }}
+                </li>
+            </ul>
         </div>
       </template>
     </div>
