@@ -1,47 +1,3 @@
-<template>
-  <div class="toolbar-wrapper">
-    <div class="toolbar">
-      <template v-for="(item, index) in schema" :key="index">
-<button
-  v-if="item.type === 'button'"
-  :class="['toolbar-button', item.class || '']"
-  :style="{
-    maxWidth: item.maxWidth || 'none',
-    backgroundColor: item.color?.startsWith('--') ? `var(${item.color})` : undefined
-  }"
-  @click="handleAction(item.action)"
->
-  <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
-  {{ item.label }}
-</button>
-<div v-else-if="item.type === 'dropdown'" class="dropdown" ref="dropdownRefs[index]">
-  <button
-    :class="['toolbar-button', item.class || '']"
-    :style="{
-      maxWidth: item.maxWidth || 'none',
-      backgroundColor: item.color?.startsWith('--') ? `var(${item.color})` : undefined
-    }"
-    @click="toggleDropdown(index)"
-  >
-    <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
-    {{ item.label }} ▼
-  </button>
-
-  <ul v-if="openDropdown === index" class="dropdown-menu">
-    <li
-      v-for="(option, idx) in item.options"
-      :key="idx"
-      @click="handleAction(option.action); closeDropdown()"
-    >
-      {{ option.label }}
-    </li>
-  </ul>
-</div>
-      </template>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { defineProps, defineEmits, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
@@ -106,6 +62,50 @@ onBeforeUnmount(() => {
   window.removeEventListener('click', handleClickOutside)
 })
 </script>
+
+<template>
+  <div class="toolbar-wrapper">
+    <div class="toolbar">
+      <template v-for="(item, index) in schema" :key="index">
+    <button
+  v-if="item.type === 'button'"
+  :class="['toolbar-button', item.class || '']"
+  :style="{
+    maxWidth: item.maxWidth || 'none',
+    backgroundColor: item.color?.startsWith('--') ? `var(${item.color})` : undefined
+  }"
+  @click="handleAction(item.action)"
+>
+  <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
+  {{ item.label }}
+</button>
+<div v-else-if="item.type === 'dropdown'" class="dropdown" ref="dropdownRefs[index]">
+  <button
+    :class="['toolbar-button', item.class || '']"
+    :style="{
+      maxWidth: item.maxWidth || 'none',
+      backgroundColor: item.color?.startsWith('--') ? `var(${item.color})` : undefined
+    }"
+    @click="toggleDropdown(index)"
+  >
+    <span v-if="item.icon" :class="['icon', item.icon]" aria-hidden="true"></span>
+    {{ item.label }} ▼
+  </button>
+
+  <ul v-if="openDropdown === index" class="dropdown-menu">
+    <li
+      v-for="(option, idx) in item.options"
+      :key="idx"
+      @click="handleAction(option.action); closeDropdown()"
+    >
+      {{ option.label }}
+    </li>
+  </ul>
+</div>
+      </template>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .toolbar-wrapper {

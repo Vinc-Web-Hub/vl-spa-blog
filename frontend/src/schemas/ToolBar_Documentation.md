@@ -1,104 +1,94 @@
-# ToolBar.vue — Documentation & Configuration Guide
 
-The `ToolBar.vue` component renders a flexible and responsive toolbar with support for buttons, dropdowns, icons, and contextual actions. You define its behavior using a schema array.
+# ToolBar Component Documentation
 
----
+## Overview
+The `ToolBar.vue` component dynamically renders a customizable toolbar using a schema array. Each schema item defines a toolbar element, such as a button or dropdown.
 
-## 🔧 Schema Format
-
-Each item in the schema is an object with:
-
-### Common Fields:
-| Property     | Type       | Required | Description                                |
-|--------------|------------|----------|--------------------------------------------|
-| `type`       | `string`   | ✅       | Must be `'button'` or `'dropdown'`         |
-| `label`      | `string`   | ✅       | Text to show on the button/dropdown        |
-| `icon`       | `string`   | ❌       | Optional icon class (e.g. FontAwesome)     |
-| `class`      | `string`   | ❌       | Optional additional CSS class              |
+## Features
+- **Buttons** and **Dropdown menus**
+- Customizable **icons**, **colors**, and **maxWidth**
+- Supports **navigation**, **emitting events**, and **custom callbacks**
+- Responsive design
+- Dropdowns close on outside click
 
 ---
 
-### 📦 Button Item
+## Schema Options
+Each item in the schema array can have the following options:
+
+### Common Options
+| Option      | Type       | Description                                                  |
+|-------------|------------|--------------------------------------------------------------|
+| `type`      | String     | `'button'` or `'dropdown'`                                   |
+| `label`     | String     | Button or dropdown label                                     |
+| `icon`      | String     | Optional icon class                                          |
+| `color`     | String     | CSS variable (e.g., `--color-red`) or fallback              |
+| `maxWidth`  | String     | Max width (e.g., `'150px'`, `'12rem'`)                      |
+| `class`     | String     | Additional CSS class                                         |
+
+### For Buttons
+| Option      | Description                                                   |
+|-------------|---------------------------------------------------------------|
+| `action`    | An object that defines the button action                      |
+
+### For Dropdowns
+| Option      | Description                                                   |
+|-------------|---------------------------------------------------------------|
+| `options`   | An array of items with `label` and `action`                  |
+
+---
+
+## Action Types
+Each `action` object supports one of the following:
+
+### Navigate
 ```js
-{
-  type: 'button',
-  label: 'Edit',
-  icon: 'fa fa-edit',
-  action: {
-    type: 'navigate',
-    to: (ctx) => `/modify-person/${ctx.id}`
-  }
-}
+{ type: 'navigate', to: '/some-page' }
+```
+Or:
+```js
+{ type: 'navigate', to: (ctx) => `/edit/${ctx.id}` }
 ```
 
-### 📦 Dropdown Item
+### Emit
 ```js
-{
-  type: 'dropdown',
-  label: 'Actions',
-  icon: 'fa fa-cogs',
-  options: [
-    {
-      label: 'Edit',
-      action: { type: 'navigate', to: (ctx) => `/edit/${ctx.id}` }
-    },
-    {
-      label: 'Delete',
-      action: { type: 'emit', event: 'delete-person' }
-    }
-  ]
-}
+{ type: 'emit', event: 'delete-item' }
+```
+
+### Callback
+```js
+{ type: 'callback', fn: (ctx) => console.log('Clicked!', ctx) }
 ```
 
 ---
 
-## ⚙️ Supported `action.type`
-
-| Type        | Description                                               |
-|-------------|-----------------------------------------------------------|
-| `navigate`  | Navigate using Vue Router. Supports function or string.   |
-| `emit`      | Emits a custom event (e.g. `delete-person`)               |
-| `callback`  | Calls a JavaScript function (defined in schema)           |
-
----
-
-## 📥 Props
-
-| Prop      | Type    | Required | Description                                |
-|-----------|---------|----------|--------------------------------------------|
-| `schema`  | Array   | ✅       | Array of toolbar item definitions          |
-| `context` | Object  | ❌       | Data passed to actions like `ctx.id`       |
-
----
-
-## 🖼️ Example toolbar.js
+## Example Toolbar Schema
 ```js
 export default [
   {
     type: 'button',
     label: 'Edit',
-    action: {
-      type: 'navigate',
-      to: (ctx) => `/modify-person/${ctx.id}`
-    }
+    icon: 'icon-edit',
+    color: '--color-blue',
+    maxWidth: '140px',
+    action: { type: 'navigate', to: (ctx) => `/modify-person/${ctx.id}` }
   },
   {
     type: 'button',
     label: 'Delete',
-    action: {
-      type: 'emit',
-      event: 'delete-person'
-    }
+    color: '--color-red',
+    maxWidth: '140px',
+    action: { type: 'emit', event: 'delete-person' }
   },
   {
     type: 'dropdown',
     label: 'More',
-    icon: 'fa fa-ellipsis-h',
+    icon: 'icon-more',
+    color: '--color-grey',
+    maxWidth: '160px',
     options: [
-      {
-        label: 'Info',
-        action: { type: 'emit', event: 'show-info' }
-      }
+      { label: 'Archive', action: { type: 'emit', event: 'archive-person' } },
+      { label: 'Duplicate', action: { type: 'callback', fn: (ctx) => duplicatePerson(ctx) } }
     ]
   }
 ]
@@ -106,19 +96,11 @@ export default [
 
 ---
 
-## 🎨 Styling Features
-- Grey toolbar background with padding and rounded corners
-- Even button sizing, spacing, hover styling
-- Responsive layout (stacked on small screens)
-- Dropdown auto-closes when clicking outside
+## Notes
+- CSS variables like `--color-red` should be defined in your `assets/index.css`
+- Buttons default to `--color-primary` if no color is provided
+- All `to`, `event`, and `fn` functions receive the `context` object passed to `ToolBar.vue`
 
 ---
 
-## 📌 Notes
-- The component listens globally for clicks to auto-close dropdowns
-- Icons use `item.icon` (e.g. FontAwesome class name)
-- `context` is automatically passed to actions for dynamic routing or data binding
-
----
-
-For advanced integrations (e.g. permissions, localization, tooltips), extend the schema logic accordingly.
+Let me know if you want to extend support for loading states, disabled buttons, or tooltips.
