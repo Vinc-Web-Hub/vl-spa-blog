@@ -1,52 +1,49 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import Form from '../components/Form.vue';
+import FormGrid from '../components/FormGrid.vue';
 import formSchemaPost from '../schemas/formSchemaPost.js';
-import { getPostById, updatePost } from '../services/frontEndService.js';
+import { fetchPostById, updatePost } from '../services/frontEndService.js';
 
 const route = useRoute();
 const router = useRouter();
-const postId = route.params.id;
+const postData = ref(null);
 
-const initialData = ref(null);
-const loading = ref(true);
+const loadPost = async () => {
+  const id = route.params.id;
+  const data = await fetchPostById(id);
+  if (data) postData.value = data;
+  else router.push('/post-list');
+};
 
-onMounted(async () => {
+onMounted(loadPost);
+
+const handleSubmit = async (updated) => {
   try {
-    const post = await getPostById(postId);
-    console.log('Fetched post:', post); // <-- Debug log
-    initialData.value = post;
-  } catch (err) {
-    console.error('Failed to load post:', err);
-    console.log('Error loading post. Please try again.');
-  } finally {
-    loading.value = false;
-  }
-});
-
-const handleSubmit = async (formData) => {
-  try {
-    await updatePost(postId, formData);
+    await updatePost(route.params.id, updated);
     router.push('/post-list');
   } catch (err) {
     console.error('Failed to update post:', err);
-    console.log('Error updating post. Please try again.');
+    alert('Error updating post');
   }
 };
 </script>
 
 <template>
   <div class="form-outer">
-    <div v-if="loading">Loading...</div>
-    <Form v-else :schema="formSchemaPost" :initialData="initialData" @submit="handleSubmit" />
+    <FormGrid
+      v-if="postData"
+      :schema="formSchemaPost"
+      :initialValues="postData"
+      @submit="handleSubmit"
+    />
+    <p v-else>Loading post data...</p>
   </div>
 </template>
 
 <style scoped>
 .form-outer {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 2rem;
   min-height: 100vh;
 }
 </style>
