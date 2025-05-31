@@ -36,7 +36,7 @@ const props = defineProps({
 
 <style scoped>
 .image-card {
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   overflow: hidden;
@@ -66,13 +66,13 @@ const props = defineProps({
 }
 
 .card-description {
-  color: var(---color-text-grey);
+  color: var(---color-grey-middle);
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
 
 .card-date {
-  color: var(--color-text-light);
+  color: var(--color-grey-light);
   font-size: 0.75rem;
 }
 

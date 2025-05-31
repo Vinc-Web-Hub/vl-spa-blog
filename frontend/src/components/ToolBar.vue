@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .toolbar-wrapper {
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
   flex: 1 1 150px;
   padding: 0.6rem 1rem;
   background-color: var(--color-primary);
-  color: var(--color-myapp-white);
+  color: var(--color-white);
   border: none;
   border-radius: 0.375rem;
   font-weight: 500;
@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
 }
 
 .dropdown-menu li:hover {
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
 }
 
 @media (max-width: 600px) {

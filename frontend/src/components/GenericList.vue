@@ -192,14 +192,14 @@ h2 {
   padding: 0.5rem;
   width: 100%;
   max-width: 300px;
-  border: 1px solid var(--color-myapp-white);
+  border: 1px solid var(--color-white);
   border-radius: 0.25rem;
 }
 
 .reset-button {
   padding: 0.5rem 0.75rem;
   background: #9ca3af;
-  color: var(--color-myapp-white);
+  color: var(--color-white);
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -226,18 +226,18 @@ h2 {
 .data-table td {
   padding: 0.75rem;
   text-align: left;
-  border-bottom: 1px solid var(--color-myapp-white);
+  border-bottom: 1px solid var(--color-white);
 }
 
 .data-table th {
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
   font-weight: 600;
   cursor: pointer;
   user-select: none;
 }
 
 .data-table th:hover {
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
 }
 
 router-link {
@@ -247,7 +247,7 @@ router-link {
 
 .no-results {
   margin-top: 1rem;
-  color: var(--color-text-grey);
+  color: var(--color-grey-middle);
   font-style: italic;
 }
 
@@ -263,7 +263,7 @@ router-link {
 .pagination button {
   padding: 0.5rem 0.75rem;
   background: var(--color-primary);
-  color: var(--color-myapp-white);
+  color: var(--color-white);
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;

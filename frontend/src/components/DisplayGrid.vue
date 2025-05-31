@@ -94,8 +94,8 @@ h2 {
 }
 
 .display-cell {
-  background: var(--color-myapp-white);
-  border: 1px solid var(--color-myapp-white);
+  background: var(--color-white);
+  border: 1px solid var(--color-white);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   display: flex;
@@ -104,13 +104,13 @@ h2 {
 
 .display-label {
   font-weight: 600;
-  color: var(--color-text-grey);
+  color: var(--color-grey-middle);
   margin-bottom: 0.25rem;
   font-size: 0.9rem;
 }
 
 .display-value {
   font-size: 1rem;
-  color: var(--color-text-dark);
+  color: var(--color-grey-dark);
 }
 </style>

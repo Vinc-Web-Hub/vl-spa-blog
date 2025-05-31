@@ -166,7 +166,7 @@ button[type='submit'] {
   margin-top: 0.5rem;
   padding: 0.6rem 0;
   background: var(--color-primary);
-  color: var(--color-myapp-white);
+  color: var(--color-white);
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;

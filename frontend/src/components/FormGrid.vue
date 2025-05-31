@@ -335,7 +335,7 @@ h2 {
   font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--color-text-dark);
+  color: var(--color-grey-dark);
   letter-spacing: -0.01em;
 }
 
@@ -354,7 +354,7 @@ h2 {
 label {
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--color-text-grey);
+  color: var(--color-grey-middle);
   letter-spacing: 0.01em;
 }
 
@@ -363,12 +363,12 @@ select,
 textarea {
   width: 100%;
   padding: 0.65rem 1rem;
-  border: 1px solid var(--color-myapp-white);
+  border: 1px solid var(--color-white);
   border-radius: 0.5rem;
   font-size: 0.95rem;
   background: #f9fafb;
   transition: all 0.2s ease;
-  color: var(--color-text-grey);
+  color: var(--color-grey-middle);
 }
 
 input:not([type="checkbox"]):focus,
@@ -382,8 +382,8 @@ textarea:focus {
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background-color: var(--color-myapp-white);
-  color: var(--color-text-grey);
+  background-color: var(--color-white);
+  color: var(--color-grey-middle);
   cursor: not-allowed;
 }
 
@@ -420,7 +420,7 @@ textarea {
 
 .help-text {
   font-size: 0.875rem;
-  color: var(--color-text-grey);
+  color: var(--color-grey-middle);
   margin-top: 0.25rem;
 }
 
@@ -428,7 +428,7 @@ textarea {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
   background: var(--color-primary);
-  color: var(--color-myapp-white);
+  color: var(--color-white);
   border: none;
   border-radius: 0.5rem;
   font-weight: 500;
@@ -470,7 +470,7 @@ textarea {
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-grey-dark);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -481,7 +481,7 @@ textarea {
 }
 
 .section-title:hover {
-  background-color: var(--color-text-grey);
+  background-color: var(--color-grey-middle);
 }
 
 .toggle-icon {

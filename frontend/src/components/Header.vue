@@ -127,7 +127,7 @@ body {
 }
 
 .nav-link {
-  color: var(--color-text-dark);
+  color: var(--color-grey-dark);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -174,7 +174,7 @@ body {
   top: 70px; /* Height of the header */
   right: 0;
   width: 250px;
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 0 8px;
   padding: 0.5rem 0;
@@ -183,7 +183,7 @@ body {
 }
 
 .mobile-link {
-  color: var(--color-text-dark);
+  color: var(--color-grey-dark);
   text-decoration: none;
   padding: 0.6rem 1.25rem;
   font-size: 0.95rem;

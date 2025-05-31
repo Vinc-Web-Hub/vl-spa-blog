@@ -42,7 +42,7 @@ const formattedDate = computed(() => {
 
 <style scoped>
 .post-card {
-  background-color: var(--color-myapp-white);
+  background-color: var(--color-white);
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -73,7 +73,7 @@ const formattedDate = computed(() => {
 
 .card-date {
   font-size: 0.875rem;
-  color: var(--color-text-light);
+  color: var(--color-grey-light);
 }
 
 .card-content {
