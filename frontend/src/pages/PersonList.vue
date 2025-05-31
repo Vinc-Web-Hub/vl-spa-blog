@@ -2,32 +2,21 @@
 import { ref, onMounted } from 'vue'
 import GenericList from '../components/GenericList.vue'
 import { fetchAllPerson } from '../services/frontEndService.js'
+import listSchema from '../schemas/listSchemaPerson.js'
 
 const person = ref([])
 
 onMounted(async () => {
   person.value = await fetchAllPerson()
-  console.log('Person fetched:', person.value) // Optional: Alert for debugging
 })
-
-const columns = [
-  {
-    key: 'name',
-    label: 'Name',
-    link: (p) => `/person/${p._id}`
-  },
-  { key: 'firstname', label: 'Firstname' },
-  { key: 'sex', label: 'Sex' },
-  { key: 'birthDate', label: 'DOB', type: 'date' }
-]
 </script>
 
 <template>
   <GenericList
-    title="Patient List"
+    :title="listSchema.title"
     :items="person"
-    :columns="columns"
-    :searchFields="['name', 'firstname']"
-    :pageSizeOptions="[10, 20, 50]"
+    :columns="listSchema.columns"
+    :searchFields="listSchema.searchFields"
+    :pageSizeOptions="listSchema.pageSizeOptions"
   />
 </template>
