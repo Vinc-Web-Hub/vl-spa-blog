@@ -135,16 +135,14 @@ export const createPerson = async (postData) => {
   }
 };
 
-/**
- * Create a new VitalSigns record by sending a POST request to the backend.
-*/
-export const createVitalSigns = async (postData) => {
+// Create a new VitalSigns record by sending a POST request to the backend.
+export const createVitalSigns = async (data) => {
   try {
-    const response = await axios.post(API_URL_VS, postData);
+    const response = await axios.post(API_URL_VS, data);
     return response.data;
   } catch (error) {
-    console.error('Error creating a Vital Sign record:', error);
-    return null;
+    console.error('Error saving vital signs:', error);
+    throw error;
   }
 };
 

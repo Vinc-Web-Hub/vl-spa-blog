@@ -13,7 +13,7 @@ import CreatePerson from '../pages/PersonCreate.vue'
 import ModifyPerson from '../pages/PersonModify.vue'
 import PersonList from '../pages/PersonList.vue'
 import PersonDisplayGrid from '../pages/PersonDisplay.vue'
-import CreateVitalSigns from '../pages/VitalSignsCreate.vue'
+import VitalSignsCreate from '../pages/VitalSignsCreate.vue'
 import UserLogin from '../pages/UserLogin.vue'
 import TestFormGridSPanLogin from '../pages/TestFormGridSpanLogin.vue'
 import TestFormGridSpan from '../pages/TestFormGridSpan.vue'
@@ -36,7 +36,7 @@ const routes = [
   { path: '/modify-person/:id', name: 'ModifyPerson', component: ModifyPerson, props: true },
   { path: '/person-list', name: 'PersonList', component: PersonList }, 
   { path: '/person/:id', name: 'PersonDisplayGrid', component: PersonDisplayGrid, props: true },
-  { path: '/create-vs', name: 'CreateVitalSigns', component: CreateVitalSigns },
+  { path: '/create-vs/:id', name: 'VitalSignsCreate', component: VitalSignsCreate, props: true},
   { path: '/login', name: 'Login', component: UserLogin },
   { path: '/form-login', name: 'FormSpanLogin', component: TestFormGridSPanLogin },
   { path: '/form-span', name: 'FormSpan', component: TestFormGridSpan },
