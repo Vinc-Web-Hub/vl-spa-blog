@@ -2,31 +2,21 @@
 import { ref, onMounted } from 'vue'
 import GenericList from '../components/GenericList.vue'
 import { fetchAllPosts } from '../services/frontEndService.js'
+import listSchema from '../schemas/listSchemaPost.js'
 
 const posts = ref([])
 
 onMounted(async () => {
   posts.value = await fetchAllPosts()
-  console.log('Posts fetched:', posts.value) // Optional: Alert for debugging
 })
-
-const columns = [
-  {
-    key: 'title',
-    label: 'Title',
-    link: (p) => `/post/${p._id}`
-  },
-  { key: 'domain', label: 'Domain' },
-  { key: 'date', label: 'Date', type: 'date' }
-]
 </script>
 
 <template>
   <GenericList
-    title="Post List"
+    :title="listSchema.title"
     :items="posts"
-    :columns="columns"
-    :searchFields="['title', 'domain']"
-    :pageSizeOptions="[10, 20, 50]"
+    :columns="listSchema.columns"
+    :searchFields="listSchema.searchFields"
+    :pageSizeOptions="listSchema.pageSizeOptions"
   />
 </template>
