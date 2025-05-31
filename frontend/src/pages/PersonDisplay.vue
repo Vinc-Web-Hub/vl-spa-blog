@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="test-wrapper">
+  <div class="main-wrapper">
     <div v-if="personData">
       <ToolBar :schema="toolBarSchema" :context="{ id: personData._id }" />
       <DisplayGrid :schema="formSchemaPerson" :document="personData" :title="'Person Detail'"/>
@@ -30,7 +30,9 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.test-wrapper {
+.main-wrapper {
   padding: 2rem;
+  max-width: 1500px;
+  margin: auto;
 }
 </style>

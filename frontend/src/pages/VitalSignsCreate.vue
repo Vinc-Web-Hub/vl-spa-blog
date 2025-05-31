@@ -31,7 +31,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="test-wrapper">
+  <div class="main-wrapper">
     <h2 v-if="personData">Add Vital Sign for : {{ personData.firstname }} {{ personData.name }}</h2>
     <FormGrid
       v-if="personData"
@@ -42,3 +42,11 @@ onMounted(async () => {
     <p v-else>Loading patient info...</p>
   </div>
 </template>
+
+<style scoped>
+.main-wrapper {
+  padding: 2rem;
+  max-width: 1500px;
+  margin: auto;
+}
+</style>

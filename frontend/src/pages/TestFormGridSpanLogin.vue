@@ -29,18 +29,19 @@ const login = async ({ username, password }) => {
 </script>
 
 <template>
-  <div class="test-wrapper">
+  <div class="main-wrapper">
     <FormGrid :schema="loginSchema" @submit="login" />
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
 </template>
 
 <style scoped>
-.test-wrapper {
+.main-wrapper {
   padding: 2rem;
-  max-width: 1000px;
+  max-width: 1500px;
   margin: auto;
 }
+
 .error {
   color: var(--color-text-error);
   text-align: center;

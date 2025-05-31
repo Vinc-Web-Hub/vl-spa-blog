@@ -9,15 +9,15 @@ function handleSubmit(data) {
 </script>
 
 <template>
-  <div class="test-wrapper">
+  <div class="main-wrapper">
     <FormGrid :schema="schema" @submit="handleSubmit" />
   </div>
 </template>
 
 <style scoped>
-.test-wrapper {
+.main-wrapper {
   padding: 2rem;
-  max-width: 1000px;
+  max-width: 1500px;
   margin: auto;
 }
 </style>

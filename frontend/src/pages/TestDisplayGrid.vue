@@ -16,15 +16,15 @@ console.log('DisplayGrid Component:', DisplayGrid)
 </script>
 
 <template>
-    <div class="test-wrapper">
+    <div class="main-wrapper">
         <DisplayGrid :schema="formGridSpanSchema" :document="personData" />
     </div>
 </template>
 
 <style scoped>
-.test-wrapper {
+.main-wrapper {
   padding: 2rem;
-  max-width: 1000px;
+  max-width: 1500px;
   margin: auto;
 }
 </style>
