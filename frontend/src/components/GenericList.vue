@@ -202,7 +202,7 @@ h2 {
 .reset-button {
   padding: 0.5rem 0.75rem;
   background: var(--color-background-medium);
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 0.375rem;
   font-weight: 500;
@@ -288,7 +288,7 @@ a:hover {
 .pagination button {
   padding: 0.5rem 0.75rem;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 0.375rem;
   cursor: pointer;

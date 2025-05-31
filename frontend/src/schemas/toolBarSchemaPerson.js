@@ -2,7 +2,7 @@ export default [
   {
     type: 'button',
     label: 'Edit',
-    color: '--color-primary',        // Maps to --color-primary in CSS
+    color: '--color-primary',
     maxWidth: '100px',
     action: {
       type: 'navigate',
@@ -12,7 +12,7 @@ export default [
   {
     type: 'button',
     label: 'Delete',
-    color: '--color-text-error',        // Maps to --color-text-error in CSS
+    color: '--color-text-error',
     maxWidth: '100px',
     action: {
       type: 'emit',
