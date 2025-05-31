@@ -66,7 +66,7 @@ const props = defineProps({
 }
 
 .card-description {
-  color: var(---color-grey-middle);
+  color: var(--color-grey-middle);
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }

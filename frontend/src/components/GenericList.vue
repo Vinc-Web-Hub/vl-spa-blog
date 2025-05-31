@@ -230,7 +230,7 @@ h2 {
 }
 
 .data-table th {
-  background-color: var(--color-white);
+  background-color: var(--color-header-light);
   font-weight: 600;
   cursor: pointer;
   user-select: none;

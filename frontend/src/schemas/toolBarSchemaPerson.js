@@ -19,17 +19,6 @@ export default [
       event: 'delete-person'
     }
   },
-   {
-    type: 'button',
-    label: 'Vital Sign',
-    icon: 'icon-heart',
-    color: '--color-primary',
-    maxWidth: '100',
-    action: {
-      type: 'navigate',
-      to: (ctx) => `/create-vs/${ctx.id}`
-    }
-  }, 
   {
     type: 'button',
     label: 'Vital Sign',
@@ -38,10 +27,9 @@ export default [
     maxWidth: '100px',
     action: {
       type: 'navigate',
-      to: (ctx) => `/add-vs/${ctx.id}`
+      to: (ctx) => `/create-vs/${ctx.id}`
     }
-  },
-
+  }, 
   {
     type: 'dropdown',
     label: 'Actions',
