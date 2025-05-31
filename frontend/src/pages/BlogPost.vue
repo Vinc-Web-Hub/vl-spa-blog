@@ -151,6 +151,6 @@ watch(() => route.params.id, loadPost)
 }
 
 .delete-button:hover:not(:disabled) {
-  background: var(--color-red);
+  background: var(--color-text-error);
 }
 </style>

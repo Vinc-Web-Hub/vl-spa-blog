@@ -12,7 +12,7 @@ export default [
   {
     type: 'button',
     label: 'Delete',
-    color: '--color-red',        // Maps to --color-red in CSS
+    color: '--color-text-error',        // Maps to --color-text-error in CSS
     maxWidth: '100px',
     action: {
       type: 'emit',

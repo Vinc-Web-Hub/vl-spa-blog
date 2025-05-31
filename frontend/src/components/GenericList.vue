@@ -192,14 +192,14 @@ h2 {
   padding: 0.5rem;
   width: 100%;
   max-width: 300px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-myapp-white);
   border-radius: 0.25rem;
 }
 
 .reset-button {
   padding: 0.5rem 0.75rem;
   background: #9ca3af;
-  color: #fff;
+  color: var(--color-myapp-white);
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -207,7 +207,7 @@ h2 {
 }
 
 .reset-button:hover {
-  background-color: #6b7280;
+  background-color: var(--color-primary-dark);
 }
 
 .page-size-selector {
@@ -226,28 +226,28 @@ h2 {
 .data-table td {
   padding: 0.75rem;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-myapp-white);
 }
 
 .data-table th {
-  background-color: #f3f4f6;
+  background-color: var(--color-myapp-white);
   font-weight: 600;
   cursor: pointer;
   user-select: none;
 }
 
 .data-table th:hover {
-  background-color: #e2e8f0;
+  background-color: var(--color-myapp-white);
 }
 
 router-link {
-  color: #2563eb;
+  color: var(--color-primary);
   text-decoration: none;
 }
 
 .no-results {
   margin-top: 1rem;
-  color: #6b7280;
+  color: var(--color-text-grey);
   font-style: italic;
 }
 
@@ -262,8 +262,8 @@ router-link {
 
 .pagination button {
   padding: 0.5rem 0.75rem;
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-myapp-white);
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -271,11 +271,11 @@ router-link {
 }
 
 .pagination button:disabled {
-  background-color: #9ca3af;
+  background-color: var(--color-text-gray);
   cursor: not-allowed;
 }
 
 .pagination button.active {
-  background: #1e40af;
+  background: var(--color-primary);
 }
 </style>

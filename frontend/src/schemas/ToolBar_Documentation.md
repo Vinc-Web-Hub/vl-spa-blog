@@ -22,7 +22,7 @@ Each item in the schema array can have the following options:
 | `type`      | String     | `'button'` or `'dropdown'`                                   |
 | `label`     | String     | Button or dropdown label                                     |
 | `icon`      | String     | Optional icon class                                          |
-| `color`     | String     | CSS variable (e.g., `--color-red`) or fallback              |
+| `color`     | String     | CSS variable (e.g., `--color-text-error`) or fallback              |
 | `maxWidth`  | String     | Max width (e.g., `'150px'`, `'12rem'`)                      |
 | `class`     | String     | Additional CSS class                                         |
 
@@ -76,7 +76,7 @@ export default [
   {
     type: 'button',
     label: 'Delete',
-    color: '--color-red',
+    color: '--color-text-error',
     maxWidth: '140px',
     action: { type: 'emit', event: 'delete-person' }
   },
@@ -97,7 +97,7 @@ export default [
 ---
 
 ## Notes
-- CSS variables like `--color-red` should be defined in your `assets/index.css`
+- CSS variables like `--color-text-error` should be defined in your `assets/index.css`
 - Buttons default to `--color-primary` if no color is provided
 - All `to`, `event`, and `fn` functions receive the `context` object passed to `ToolBar.vue`
 

@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .toolbar-wrapper {
-  background-color: #f3f4f6;
+  background-color: var(--color-myapp-white);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -124,8 +124,8 @@ onBeforeUnmount(() => {
 .toolbar-button {
   flex: 1 1 150px;
   padding: 0.6rem 1rem;
-  background-color: #2563eb;
-  color: #fff;
+  background-color: var(--color-primary);
+  color: var(--color-myapp-white);
   border: none;
   border-radius: 0.375rem;
   font-weight: 500;
@@ -139,7 +139,7 @@ onBeforeUnmount(() => {
 }
 
 .toolbar-button:hover {
-  background-color: #1e40af;
+  background-color: var(--color-primary-dark);
 }
 
 .icon {
@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
 }
 
 .dropdown-menu li:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-myapp-white);
 }
 
 @media (max-width: 600px) {

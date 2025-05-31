@@ -335,7 +335,7 @@ h2 {
   font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
-  color: #1f2937;
+  color: var(--color-text-dark);
   letter-spacing: -0.01em;
 }
 
@@ -354,7 +354,7 @@ h2 {
 label {
   font-weight: 500;
   font-size: 0.95rem;
-  color: #374151;
+  color: var(--color-text-grey);
   letter-spacing: 0.01em;
 }
 
@@ -363,18 +363,18 @@ select,
 textarea {
   width: 100%;
   padding: 0.65rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-myapp-white);
   border-radius: 0.5rem;
   font-size: 0.95rem;
   background: #f9fafb;
   transition: all 0.2s ease;
-  color: #1f2937;
+  color: var(--color-text-grey);
 }
 
 input:not([type="checkbox"]):focus,
 select:focus,
 textarea:focus {
-  border-color: #3b82f6;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   outline: none;
 }
@@ -382,8 +382,8 @@ textarea:focus {
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background-color: #f9fafb;
-  color: #9ca3af;
+  background-color: var(--color-myapp-white);
+  color: var(--color-text-grey);
   cursor: not-allowed;
 }
 
@@ -420,15 +420,15 @@ textarea {
 
 .help-text {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--color-text-grey);
   margin-top: 0.25rem;
 }
 
 .submit-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-myapp-white);
   border: none;
   border-radius: 0.5rem;
   font-weight: 500;
@@ -439,25 +439,25 @@ textarea {
 }
 
 .submit-button:hover:not(:disabled) {
-  background: #1e40af;
+  background: var(--color-primary-dark);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button:disabled {
-  background: #9ca3af;
+  background: var(--color-test-grey);
   cursor: not-allowed;
 }
 
 .error-message {
   font-size: 0.875rem;
-  color: #ef4444;
+  color: var(--color-text-error);
   margin-top: 0.25rem;
   font-weight: 500;
 }
 
 .section-header {
   grid-column: 1 / -1;
-  background: #f3f4f6;
+  background: var(--color-header-light);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   font-weight: bold;
@@ -470,7 +470,7 @@ textarea {
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--color-text-dark);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -481,7 +481,7 @@ textarea {
 }
 
 .section-title:hover {
-  background-color: #e5e7eb;
+  background-color: var(--color-text-grey);
 }
 
 .toggle-icon {
