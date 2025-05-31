@@ -162,14 +162,16 @@ function format(value, type) {
 
 <style scoped>
 .generic-list {
-  padding: 1rem;
+  padding: 1.5rem;
+  font-family: var(--font-family-app);
 }
 
 h2 {
   margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: 600;
+  color: var(--color-text-dark);
 }
 
 .header-controls {
@@ -178,7 +180,7 @@ h2 {
   align-items: center;
   margin-bottom: 1rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .search-controls {
@@ -189,25 +191,27 @@ h2 {
 }
 
 .search-input {
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   width: 100%;
-  max-width: 300px;
-  border: 1px solid var(--color-white);
-  border-radius: 0.25rem;
+  max-width: 280px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1rem;
 }
 
 .reset-button {
   padding: 0.5rem 0.75rem;
   background: #9ca3af;
-  color: var(--color-white);
+  color: #fff;
   border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
+  border-radius: 0.375rem;
   font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .reset-button:hover {
-  background-color: var(--color-primary-dark);
+  background-color: #6b7280;
 }
 
 .page-size-selector {
@@ -215,40 +219,61 @@ h2 {
   align-items: center;
   gap: 0.5rem;
   margin-left: auto;
+  font-size: 0.95rem;
 }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.95rem;
 }
 
 .data-table th,
 .data-table td {
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--color-white);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .data-table th {
-  background-color: var(--color-header-light);
+  background-color: #f9fafb;
   font-weight: 600;
-  cursor: pointer;
   user-select: none;
 }
 
-.data-table th:hover {
-  background-color: var(--color-white);
+.data-table th.sortable {
+  cursor: pointer;
 }
 
-router-link {
-  color: var(--color-primary);
+.data-table th.sortable:hover {
+  background-color: #f3f4f6;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.data-table tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+router-link,
+a {
+  color: #2563eb;
   text-decoration: none;
+  font-weight: 500;
+}
+
+router-link:hover,
+a:hover {
+  text-decoration: underline;
 }
 
 .no-results {
-  margin-top: 1rem;
-  color: var(--color-grey-middle);
+  margin-top: 1.5rem;
+  color: #9ca3af;
   font-style: italic;
+  text-align: center;
 }
 
 .pagination {
@@ -256,26 +281,28 @@ router-link {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 }
 
 .pagination button {
   padding: 0.5rem 0.75rem;
-  background: var(--color-primary);
-  color: var(--color-white);
+  background: #2563eb;
+  color: #fff;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   cursor: pointer;
   font-weight: 500;
+  transition: background 0.2s;
 }
 
 .pagination button:disabled {
-  background-color: var(--color-text-gray);
+  background-color: #d1d5db;
   cursor: not-allowed;
 }
 
 .pagination button.active {
-  background: var(--color-primary);
+  background-color: #1e40af;
 }
+
 </style>
