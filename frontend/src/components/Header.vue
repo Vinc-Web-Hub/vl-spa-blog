@@ -127,7 +127,7 @@ body {
 }
 
 .nav-link {
-  color: var(--color-grey-dark);
+  color: var(--color-text-dark);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -183,7 +183,7 @@ body {
 }
 
 .mobile-link {
-  color: var(--color-grey-dark);
+  color: var(--color-text-dark);
   text-decoration: none;
   padding: 0.6rem 1.25rem;
   font-size: 0.95rem;

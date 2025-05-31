@@ -66,13 +66,13 @@ const props = defineProps({
 }
 
 .card-description {
-  color: var(--color-grey-middle);
+  color: var(--color-text-medium);
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
 
 .card-date {
-  color: var(--color-grey-light);
+  color: var(--color-text-light);
   font-size: 0.75rem;
 }
 

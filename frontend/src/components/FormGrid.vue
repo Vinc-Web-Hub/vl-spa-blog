@@ -335,7 +335,7 @@ h2 {
   font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--color-grey-dark);
+  color: var(--color-text-dark);
   letter-spacing: -0.01em;
 }
 
@@ -354,7 +354,7 @@ h2 {
 label {
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--color-grey-middle);
+  color: var(--color-text-medium);
   letter-spacing: 0.01em;
 }
 
@@ -368,7 +368,7 @@ textarea {
   font-size: 0.95rem;
   background: #f9fafb;
   transition: all 0.2s ease;
-  color: var(--color-grey-middle);
+  color: var(--color-text-medium);
 }
 
 input:not([type="checkbox"]):focus,
@@ -383,7 +383,7 @@ input:disabled,
 select:disabled,
 textarea:disabled {
   background-color: var(--color-white);
-  color: var(--color-grey-middle);
+  color: var(--color-text-medium);
   cursor: not-allowed;
 }
 
@@ -420,7 +420,7 @@ textarea {
 
 .help-text {
   font-size: 0.875rem;
-  color: var(--color-grey-middle);
+  color: var(--color-text-medium);
   margin-top: 0.25rem;
 }
 
@@ -470,7 +470,7 @@ textarea {
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-grey-dark);
+  color: var(--color-text-dark);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -481,7 +481,7 @@ textarea {
 }
 
 .section-title:hover {
-  background-color: var(--color-grey-middle);
+  background-color: var(--color-text-medium);
 }
 
 .toggle-icon {

@@ -104,13 +104,13 @@ h2 {
 
 .display-label {
   font-weight: 600;
-  color: var(--color-grey-middle);
+  color: var(--color-text-medium);
   margin-bottom: 0.25rem;
   font-size: 0.9rem;
 }
 
 .display-value {
   font-size: 1rem;
-  color: var(--color-grey-dark);
+  color: var(--color-text-dark);
 }
 </style>

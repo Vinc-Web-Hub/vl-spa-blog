@@ -194,14 +194,14 @@ h2 {
   padding: 0.5rem 0.75rem;
   width: 100%;
   max-width: 280px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-background-light);
   border-radius: 0.375rem;
   font-size: 1rem;
 }
 
 .reset-button {
   padding: 0.5rem 0.75rem;
-  background: #9ca3af;
+  background: var(--color-background-medium);
   color: #fff;
   border: none;
   border-radius: 0.375rem;
@@ -211,7 +211,7 @@ h2 {
 }
 
 .reset-button:hover {
-  background-color: #6b7280;
+  background-color: var(--color-background-medium);
 }
 
 .page-size-selector {
@@ -236,7 +236,7 @@ h2 {
 }
 
 .data-table th {
-  background-color: #f9fafb;
+  background-color: var(--color-header-light);
   font-weight: 600;
   user-select: none;
 }
@@ -246,20 +246,20 @@ h2 {
 }
 
 .data-table th.sortable:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-header-ultralight);
 }
 
 .data-table tbody tr:nth-child(even) {
-  background-color: #f9fafb;
+  background-color: var(--color-background-ultralight);
 }
 
 .data-table tbody tr:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-background-light);
 }
 
 router-link,
 a {
-  color: #2563eb;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
 }
@@ -287,7 +287,7 @@ a:hover {
 
 .pagination button {
   padding: 0.5rem 0.75rem;
-  background: #2563eb;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 0.375rem;
@@ -297,12 +297,12 @@ a:hover {
 }
 
 .pagination button:disabled {
-  background-color: #d1d5db;
+  background-color: var(--color-background-medium);
   cursor: not-allowed;
 }
 
 .pagination button.active {
-  background-color: #1e40af;
+  background-color: var(--color-primary-dark);
 }
 
 </style>
